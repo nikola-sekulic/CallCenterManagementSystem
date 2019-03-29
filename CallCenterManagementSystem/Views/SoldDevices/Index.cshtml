@@ -1,0 +1,96 @@
+﻿@model IEnumerable<CallCenterManagementSystem.Models.SoldDevice>
+@{
+    ViewBag.Title = "SoldDevices";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Sold Devices</h2>
+
+
+<table id="soldDevices" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Sold Device</th>
+            <th>WarrantyStartDate</th>
+            <th>WarrantyEndDate</th>
+            <th>Price</th>
+            <th>Buyer Name</th>
+            <th>Phone Number</th>
+            <th>Address</th>
+            <th>Supplier</th>
+            <th>Supplier Address</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function (data) {
+            $("#soldDevices").DataTable({
+                ajax: {
+                    url: "/api/solddevices",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "name"
+
+                    },
+
+                    {
+                        data: "warrantyStartDate",
+                        "render": function (jsonDate) {
+                            var date = new Date();
+                            var month = date.getMonth() + 1;
+                            return date.getDate() + "/" + month + "/" + date.getFullYear();
+                        }
+                    },
+                    {
+                        data: "warrantyEndDate",
+                        "render": function (jsonDate) {
+                            var date = new Date();
+                            var month = date.getMonth() + 1;
+                            return date.getDate() + "/" + month + "/" + date.getFullYear();
+                        }
+                        
+                    },
+                    {
+                        data: "price",
+                        "render": function (price) {
+                            return price + " DIN";
+                        }
+
+                    },
+                    {
+                        data: "buyer.name"
+
+                    },
+                    {
+                    data: "buyer.phoneNumber"
+
+                    },
+                    {
+                    data: "buyer.address"
+
+                    },
+                    {
+                        data: "deviceSupplier.compamyName"
+
+                    },
+                    {
+                        data: "deviceSupplier.address"
+
+                    },
+                    
+                    
+
+
+                ]
+
+            });
+        });
+        
+    </script>
+    }

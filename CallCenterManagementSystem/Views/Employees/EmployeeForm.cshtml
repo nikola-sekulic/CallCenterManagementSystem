@@ -1,0 +1,111 @@
+﻿@model CallCenterManagementSystem.ViewModels.NewEmployeeViewModel
+@{
+    ViewBag.Title = Model.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Title</h2>
+
+@using (Html.BeginForm("Save", "Employees"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Employee.Name)
+        @Html.TextBoxFor(m => m.Employee.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Employee.Name)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Employee.DateStarted)
+        @Html.TextBoxFor(m => m.Employee.DateStarted, new { @id = "dateStarted", @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Employee.DateStarted)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Employee.DateEnded)
+        @Html.TextBoxFor(m => m.Employee.DateEnded, new { @id = "dateEnded", @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Employee.DateEnded)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Employee.DepartmentId)
+        @Html.DropDownListFor(m => m.Employee.DepartmentId, new SelectList(Model.Departments, "Id", "Name"), "Select Department.", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Employee.DepartmentId)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Employee.DesignationId)
+        @Html.DropDownListFor(m => m.Employee.DesignationId, new SelectList(Model.Designations, "Id", "Name"), "Select Designation.", new { @id = "designation", @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Employee.DesignationId)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Employee.Qualification)
+        @Html.TextBoxFor(m => m.Employee.Qualification, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Employee.Qualification)
+    </div>
+
+    <div class="form-group">
+
+        @Html.LabelFor(m => m.Employee.SupervisorId)
+        @Html.TextBoxFor(m => m.Employee.SupervisorId, new { id = "supervisor", @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Employee.SupervisorId)
+
+    </div>
+
+    <div class="form-group">
+        <div class="radio-inline">
+            @Html.RadioButtonFor(m => m.Employee.Gender, "Male", new { id = "isMale" }) Male
+        </div>
+        
+        <div class="radio-inline">
+            @Html.RadioButtonFor(m => m.Employee.Gender, "Female", new { id = "isFemale" }) Female
+        </div>
+        
+        @Html.ValidationMessageFor(m => m.Employee.Gender)
+    </div>
+
+    @Html.HiddenFor(m => m.Employee.Id)
+    <button type="submit" class="btn btn-primary">Save</button>
+
+}
+@section scripts
+    {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            $('#designation').change(function () {
+
+                var selectedValue = $(this).val();
+
+                if (selectedValue == 1) {
+                    $("#supervisor").attr("disabled", "disabled");
+                }
+                else {
+                    $("#supervisor").removeAttr("disabled");
+                }
+
+
+            });
+
+        });
+    </script>
+
+
+    <script>
+        var picker = new Pikaday({
+            field: $('#dateStarted')[0],
+            format: 'DD . MM . YYYY .',
+            yearRange: [2000, 2020]
+        });
+    </script>
+
+    <script>
+        var picker = new Pikaday({
+            field: $('#dateEnded')[0],
+            format: 'DD . MM . YYYY .',
+            yearRange: [2000, 2020]
+        });
+    </script>
+
+}
