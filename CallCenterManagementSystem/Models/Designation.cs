@@ -14,6 +14,8 @@ namespace CallCenterManagementSystem.Models
         [Required]
         public string Name { get; set; }
 
-        public readonly static int Supervisor = 0;
+        public readonly static int Supervisor = 1;
+        public readonly static int Agent = 2;
+        public readonly static int Specialist = 3;
     }
 }

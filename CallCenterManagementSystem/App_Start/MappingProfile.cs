@@ -17,12 +17,18 @@ namespace CallCenterManagementSystem.App_Start
             
             Mapper.CreateMap<Department, DepartmentDto>();
             Mapper.CreateMap<DepartmentDto, Department>();
+
             Mapper.CreateMap<Designation, DesignationDto>();
             Mapper.CreateMap<DesignationDto, Designation>();
+
             Mapper.CreateMap<SoldDevice, SoldDeviceDto>();
             Mapper.CreateMap<SoldDeviceDto, SoldDevice>();
+
             Mapper.CreateMap<Buyer, BuyerDto>();
             Mapper.CreateMap<DeviceSupplier, DeviceSupplierDto>();
+
+            Mapper.CreateMap<Reclamation, NewReclamationDto>();
+            Mapper.CreateMap<NewReclamationDto, Reclamation>();
 
 
 

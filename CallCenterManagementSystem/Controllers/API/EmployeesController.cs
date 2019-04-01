@@ -18,14 +18,17 @@ namespace CallCenterManagementSystem.Views.Employees.API
         {
             _context = new ApplicationDbContext();
         }
-        public IHttpActionResult GetEmployees (string query = null)
+        public IHttpActionResult GetEmployees (string query = null,string query2=null)
         {
             var employeesQuery = _context.Employees
                 .Include(c => c.Designation)
                 .Include(c => c.Department);
 
             if (!String.IsNullOrWhiteSpace(query))
-                employeesQuery = employeesQuery.Where(c => c.Name.Contains(query));
+                employeesQuery = employeesQuery.Where(c => c.Name.Contains(query) && c.DesignationId == Designation.Agent);
+
+            if (!String.IsNullOrWhiteSpace(query2))
+                employeesQuery = employeesQuery.Where(c => c.Name.Contains(query2)&&c.DesignationId==Designation.Specialist);
 
 
             var employeesDtos = employeesQuery

@@ -28,6 +28,7 @@ namespace CallCenterManagementSystem.Models
         public DbSet<SoldDevice> SoldDevices { get; set; }
         public DbSet<ReclamationType> ReclamationTypes { get; set; }
         public DbSet<CallHistory> CallHistories { get; set; }
+        public DbSet<Reclamation> Reclamations { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

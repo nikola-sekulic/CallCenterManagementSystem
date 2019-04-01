@@ -189,16 +189,19 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\API\EmployeesController.cs" />
+    <Compile Include="Controllers\API\ReclamationsController.cs" />
     <Compile Include="Controllers\API\SoldDevicesController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ReclamationsController.cs" />
     <Compile Include="Controllers\SoldDevicesController.cs" />
     <Compile Include="Dtos\BuyerDto.cs" />
     <Compile Include="Dtos\DepartmentDto.cs" />
     <Compile Include="Dtos\DesignationDto.cs" />
     <Compile Include="Dtos\DeviceSupplierDto.cs" />
     <Compile Include="Dtos\EmployeeDto.cs" />
+    <Compile Include="Dtos\NewReclamationDto.cs" />
     <Compile Include="Dtos\SoldDeviceDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -239,10 +242,28 @@
     <Compile Include="Migrations\201903291119395_CallHistory.Designer.cs">
       <DependentUpon>201903291119395_CallHistory.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903311632090_Reclamation.cs" />
+    <Compile Include="Migrations\201903311632090_Reclamation.Designer.cs">
+      <DependentUpon>201903311632090_Reclamation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904011821426_DeleteEmployeeInReclamation.cs" />
+    <Compile Include="Migrations\201904011821426_DeleteEmployeeInReclamation.Designer.cs">
+      <DependentUpon>201904011821426_DeleteEmployeeInReclamation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904011824413_AddAgentAndSpecialistToReclamation.cs" />
+    <Compile Include="Migrations\201904011824413_AddAgentAndSpecialistToReclamation.Designer.cs">
+      <DependentUpon>201904011824413_AddAgentAndSpecialistToReclamation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904011836018_RemoveCallFromReclamationAddDate.cs" />
+    <Compile Include="Migrations\201904011836018_RemoveCallFromReclamationAddDate.Designer.cs">
+      <DependentUpon>201904011836018_RemoveCallFromReclamationAddDate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Buyer.cs" />
     <Compile Include="Models\CallHistory.cs" />
+    <Compile Include="Models\MustBeAgent.cs" />
+    <Compile Include="Models\MustBeSpecialist.cs" />
     <Compile Include="Models\Reclamation.cs" />
     <Compile Include="Models\ReclamationType.cs" />
     <Compile Include="Models\SoldDevice.cs" />
@@ -256,6 +277,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\NewEmployeeViewModel.cs" />
+    <Compile Include="ViewModels\NewReclamationViewModel.cs" />
     <Compile Include="ViewModels\NewSoldDeviceViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -420,10 +442,13 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\typeahead.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bloodhound.js" />
+    <Content Include="Scripts\bloodhound.min.js" />
     <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -522,6 +547,10 @@
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\typeahead.bundle.js" />
+    <Content Include="Scripts\typeahead.bundle.min.js" />
+    <Content Include="Scripts\typeahead.jquery.js" />
+    <Content Include="Scripts\typeahead.jquery.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -561,6 +590,7 @@
     <Content Include="Views\Employees\Index.cshtml" />
     <Content Include="Views\SoldDevices\Index.cshtml" />
     <Content Include="Views\Shared\_NavBar.cshtml" />
+    <Content Include="Views\Reclamations\New.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -605,6 +635,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903291119395_CallHistory.resx">
       <DependentUpon>201903291119395_CallHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903311632090_Reclamation.resx">
+      <DependentUpon>201903311632090_Reclamation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904011821426_DeleteEmployeeInReclamation.resx">
+      <DependentUpon>201904011821426_DeleteEmployeeInReclamation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904011824413_AddAgentAndSpecialistToReclamation.resx">
+      <DependentUpon>201904011824413_AddAgentAndSpecialistToReclamation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904011836018_RemoveCallFromReclamationAddDate.resx">
+      <DependentUpon>201904011836018_RemoveCallFromReclamationAddDate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -33,10 +33,10 @@ namespace CallCenterManagementSystem
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap-flatly.css",
                       "~/Content/bootstrap-theme.css",
-                      "~/Content/site.css",
                       "~/Content/toastr.css",
                       "~/Content/css/datatables.bootstrap.css",
                       "~/Content/typeahead.css",
+                      "~/Content/site.css",
                       "~/Content/Pikaday/pikaday.css",
                       //"~/Content/Pikaday/site.css",
                       //"~/Content/Pikaday/theme.css",

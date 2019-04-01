@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -18,20 +19,29 @@ namespace CallCenterManagementSystem.Models
         [StringLength(50)]
         public string  Status { get; set; }
 
-        public Employee Employee { get; set; }
+        [Required]
+        [MustBeAgent]
+        public Employee Agent { get; set; }
 
         [Required]
-        public int EmployeeId { get; set; }
+        [MustBeSpecialist]
+        public Employee Specialist { get; set; }
 
         public SoldDevice SoldDevice { get; set; }
 
         [Required]
         public int SoldDeviceId { get; set; }
 
-        public CallHistory CallHistory { get; set; }
+        [Required]
+        public DateTime ReclamationCreated { get; set; }
+
+        public DateTime? ReclamationEnded { get; set; }
+
+        public ReclamationType ReclamationType { get; set; }
 
         [Required]
-        public int CallHistoryId { get; set; }
+        public int ReclamationTypeId { get; set; }
+
 
     }
 }
