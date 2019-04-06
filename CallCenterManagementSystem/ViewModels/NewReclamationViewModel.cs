@@ -11,6 +11,8 @@ namespace CallCenterManagementSystem.ViewModels
         public Reclamation Reclamation { get; set; }
         public IEnumerable<CallHistory> CallHistories { get; set; }
         public IEnumerable<Buyer> Buyers { get; set; }
+        public IEnumerable<ReclamationType> ReclamationTypes { get; set; }
+        public IEnumerable<Employee> Employees { get; set; }
 
     }
 }

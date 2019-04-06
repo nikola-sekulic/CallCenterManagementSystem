@@ -9,38 +9,57 @@ using CallCenterManagementSystem.Dtos;
 using CallCenterManagementSystem.Models;
 using System.Data.Entity;
 
+
 namespace CallCenterManagementSystem.Controllers.API
 {
     public class ReclamationsController : ApiController
     {
         private ApplicationDbContext _context;
 
+        public ReclamationsController()
+        {
+            _context = new ApplicationDbContext();
+        }
+
         protected override void Dispose(bool disposing)
         {
             _context.Dispose();
         }
 
-        [HttpPost]
-        public IHttpActionResult CreateNewReclamations(NewReclamationDto newReclamation)
+        public IHttpActionResult GetReclamations()
         {
-            var agent = _context.Employees.Single(c => c.Id == newReclamation.EmployeeId);
-            var specialist = _context.Employees.Single(c => c.Id == newReclamation.SpecialistId);
-            var soldDevice = _context.SoldDevices.Single(c => c.Id == newReclamation.SoldDeviceId);
-            var type = _context.ReclamationTypes.Single(c => c.Id == newReclamation.ReclamationTypeId);
+            var reclamationsQuery = _context.Reclamations
+                .Include(m => m.Agent)
+                .Include(m => m.Specialist)
+                .Include(m => m.SoldDevice)
+                .Include(m => m.ReclamationType)
+                .ToList()
+                .Select(Mapper.Map<Reclamation, NewReclamationDto>);
 
-            var reclamation = new Reclamation
-            {
-                Agent = agent,
-                Specialist = specialist,
-                SoldDevice = soldDevice,
-                ReclamationType = type,
-                ReclamationCreated=DateTime.Now
-            };
+            return Ok(reclamationsQuery);
+        }
 
+        public IHttpActionResult GetReclamation(int id)
+        {
+            var reclamation = _context.Reclamations.SingleOrDefault(c => c.Id == id);
+
+            if (reclamation == null)
+                return NotFound();
+
+            return Ok(Mapper.Map<Reclamation, NewReclamationDto>(reclamation));
+        }
+
+        [HttpPost]
+        public IHttpActionResult CreateNewReclamations(NewReclamationDto newReclamationDto)
+        {
+            
+
+            var reclamation = Mapper.Map<NewReclamationDto, Reclamation>(newReclamationDto);
             _context.Reclamations.Add(reclamation);
             _context.SaveChanges();
-
-            return Ok(); 
+            newReclamationDto.Id = reclamation.Id;
+            return Ok();
+           
         }
     }
 }

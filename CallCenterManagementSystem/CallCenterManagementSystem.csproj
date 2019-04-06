@@ -218,10 +218,6 @@
     <Compile Include="Migrations\201903251056023_AddGenderToEmployee.Designer.cs">
       <DependentUpon>201903251056023_AddGenderToEmployee.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903251103473_PopulateEmployeeGender.cs" />
-    <Compile Include="Migrations\201903251103473_PopulateEmployeeGender.Designer.cs">
-      <DependentUpon>201903251103473_PopulateEmployeeGender.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201903261101161_DeviceSupplier.cs" />
     <Compile Include="Migrations\201903261101161_DeviceSupplier.Designer.cs">
       <DependentUpon>201903261101161_DeviceSupplier.cs</DependentUpon>
@@ -257,6 +253,10 @@
     <Compile Include="Migrations\201904011836018_RemoveCallFromReclamationAddDate.cs" />
     <Compile Include="Migrations\201904011836018_RemoveCallFromReclamationAddDate.Designer.cs">
       <DependentUpon>201904011836018_RemoveCallFromReclamationAddDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904061109411_AddIdforEmployees.cs" />
+    <Compile Include="Migrations\201904061109411_AddIdforEmployees.Designer.cs">
+      <DependentUpon>201904061109411_AddIdforEmployees.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -618,9 +618,6 @@
     <EmbeddedResource Include="Migrations\201903251056023_AddGenderToEmployee.resx">
       <DependentUpon>201903251056023_AddGenderToEmployee.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903251103473_PopulateEmployeeGender.resx">
-      <DependentUpon>201903251103473_PopulateEmployeeGender.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903261101161_DeviceSupplier.resx">
       <DependentUpon>201903261101161_DeviceSupplier.cs</DependentUpon>
     </EmbeddedResource>
@@ -647,6 +644,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904011836018_RemoveCallFromReclamationAddDate.resx">
       <DependentUpon>201904011836018_RemoveCallFromReclamationAddDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904061109411_AddIdforEmployees.resx">
+      <DependentUpon>201904061109411_AddIdforEmployees.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

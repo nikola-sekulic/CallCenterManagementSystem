@@ -17,15 +17,22 @@ namespace CallCenterManagementSystem.Models
 
         [Required]
         [StringLength(50)]
-        public string  Status { get; set; }
+        public string Status { get; set; }
 
-        [Required]
-        [MustBeAgent]
+        
         public Employee Agent { get; set; }
 
         [Required]
-        [MustBeSpecialist]
+        //[MustBeAgent]
+        public int AgentId { get; set; }
+
+        
         public Employee Specialist { get; set; }
+
+        [Required]
+        //[MustBeSpecialist]
+        public int SpecialistId { get; set; }
+
 
         public SoldDevice SoldDevice { get; set; }
 
@@ -41,7 +48,6 @@ namespace CallCenterManagementSystem.Models
 
         [Required]
         public int ReclamationTypeId { get; set; }
-
 
     }
 }

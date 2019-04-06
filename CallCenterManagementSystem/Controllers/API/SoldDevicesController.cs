@@ -19,13 +19,13 @@ namespace CallCenterManagementSystem.Controllers.API
         {
             _context = new ApplicationDbContext();
         }
-        
-        public IHttpActionResult GetSoldDevices(string query = null)
-        {
-            var SoldDevicesQuery = _context.SoldDevices.Include(m => m.DeviceSupplier).Include(m=>m.Buyer);
 
-            if (!String.IsNullOrWhiteSpace(query))
-                SoldDevicesQuery = SoldDevicesQuery.Where(m => m.Name.Contains(query));
+        public IHttpActionResult GetSoldDevices(Nullable<int> query = null)
+        {
+            var SoldDevicesQuery = _context.SoldDevices.Include(m => m.DeviceSupplier).Include(m => m.Buyer);
+
+            if (!String.IsNullOrWhiteSpace(query.ToString()))
+                SoldDevicesQuery = SoldDevicesQuery.Where(m => m.Id==query);
 
             var SoldDevicesDtos = SoldDevicesQuery.ToList().Select(Mapper.Map<SoldDevice, SoldDeviceDto>);
 

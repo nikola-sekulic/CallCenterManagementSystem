@@ -5,20 +5,68 @@
 }
 
 <h2>New Reclamation Form</h2>
-<form>
+<form id="newReclamation">
+
+    <div class="form-group">
+        <label>Device for Reclamation</label>
+        <div class="tt-container">
+            <input id="device" type="text" value="" class="form-control" />
+        </div>
+    </div>
+
+    <ul id="soldDevice" class="text-success"></ul>
+
     <div class="form-group">
         <label>Agent</label>
         <div class="tt-container">
-            <input id="employee" type="text" value="" class="form-control" />
+            <input id="agent" type="text" value="" class="form-control" />
         </div>
-    </div> 
+    </div>
 
     <div class="form-group">
         <label>Specialist</label>
         <div class="tt-container">
             <input id="specialist" type="text" value="" class="form-control" />
         </div>
-    </div> 
+    </div>
+
+    <div class="form-group">
+        <label for="Status">Select Status</label>
+        <select class="form-control" id="status">
+            <option>In Progress</option>
+            <option>Reclamation Accepted</option>
+            <option>Reclamation Declined</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Date Started</label>
+        <div class="tt-container">
+            <input id="dateStarted" type="text" value="" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Date Ended</label>
+        <div class="tt-container">
+            <input id="dateEnded" type="text" value="" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="Type">Select Reclamation Type</label>
+        <select class="form-control" id="reclamationType">
+            <option>1</option>
+            <option>2</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="comment">Decription:</label>
+        <div class="tt-container">
+            <textarea class="form-control" rows="5" id="desc"></textarea>
+        </div>
+    </div>
 
     <button class="btn btn-primary">Submit</button>
 </form>
@@ -30,6 +78,22 @@
 
             var vm = {};
 
+            var picker = new Pikaday({
+                field: $('#dateEnded')[0],
+                format: 'DD . MM . YYYY .',
+                yearRange: [2000, 2020]
+            });
+
+            var picker2 = new Pikaday({
+                field: $('#dateStarted')[0],
+                format: 'DD . MM . YYYY .',
+                yearRange: [2000, 2020]
+            });
+
+            
+
+            
+
             var employees = new Bloodhound({
                 datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
                 queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -39,15 +103,15 @@
                 }
             });
 
-            $('#employee').typeahead({
+            $('#agent').typeahead({
                 minLength: 3,
                 highlight: true
             }, {
-                    name: 'employees',
+                    name: 'agents',
                     display: 'name',
                     source: employees
-                }).on("typeahead:select", function (e, employee) {
-                    vm.employeeId = employee.Id;
+                }).on("typeahead:select", function (e, agent) {
+                    vm.agentId = agent.id;
                 });
 
             var specialists = new Bloodhound({
@@ -67,9 +131,69 @@
                     display: 'name',
                     source: specialists
                 }).on("typeahead:select", function (e, specialist) {
-                    vm.employeeId = employee.Id;
+                    vm.specialistId = specialist.id;
                 });
+
+            var devices = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('id'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: '/api/solddevices?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+
+            $('#device').typeahead({
+                highlight: true
+            }, {
+                    name: 'devices',
+                    display: 'id',
+                    source: devices
+                }).on("typeahead:select", function (e, device) {
+                    $("#soldDevice").append("<li> Device: " + device.name +  "</li>");
+                    $("#soldDevice").append("<li> Warranty Ends: " + device.warrantyEndDate +"</li>");
+                    $("#soldDevice").append("<li> Price:  &nbsp" + device.price + "</li>");
+
+                    $("#soldDevice").append("<li>Buyer ID: " + device.buyerId + "</li>");
+                    $("#soldDevice").append("<li>  Name: " + device.buyer.name + "</li>");
+                    $("#soldDevice").append("<li>   Address:" + device.buyer.address + "</li>");
+
+                    vm.soldDeviceId = device.id;
+                });
+
+            $('#device').on('click focusin', function () {
+                this.value = '';
+                $("#soldDevice").html('');
+            });
+
+            $("#newReclamation").submit(function (e) {
+                e.preventDefault();
+
+                vm.reclamationCreated = $('#dateStarted').val();
+                vm.reclamationEnded = $('#dateEnded').val();
+
+                vm.status = $('#status').val();
+                vm.reclamationTypeId = $('#reclamationType').val();
+                vm.problemDescription = $('#desc').val();
+
+                $.ajax({
+                    url: "/api/reclamations",
+                    method: "post",
+                    data: vm
+                })
+                    .done(function () {
+                        console.log("done");
+
+                    })
+                    .fail(function () {
+                    });
+            });
+
         });
+    </script>
+
+    <script>
+        
     </script>
 }
 

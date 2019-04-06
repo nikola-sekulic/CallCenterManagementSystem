@@ -7,13 +7,13 @@ namespace CallCenterManagementSystem.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class PopulateEmployeeGender : IMigrationMetadata
+    public sealed partial class AddIdforEmployees : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(PopulateEmployeeGender));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddIdforEmployees));
         
         string IMigrationMetadata.Id
         {
-            get { return "201903251103473_PopulateEmployeeGender"; }
+            get { return "201904061109411_AddIdforEmployees"; }
         }
         
         string IMigrationMetadata.Source

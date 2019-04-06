@@ -10,19 +10,42 @@ namespace CallCenterManagementSystem.Dtos
 {
     public class NewReclamationDto
     {
-        [Required]
-        [MustBeAgent]
-        public int EmployeeId { get; set; }
+        public int Id { get; set; }
 
-        [ForeignKey("Employee")]
-        [MustBeSpecialist]
+        [Required]
+        [MaxLength(255)]
+        public string ProblemDescription { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string Status { get; set; }
+
+        [Required]
+        //[MustBeAgent]
+        public Employee Agent { get; set; }
+
+        [Required]
+        //[MustBeAgent]
+        public int AgentId { get; set; }
+
+
+        public Employee Specialist { get; set; }
+
+        [Required]
+        //[MustBeSpecialist]
         public int SpecialistId { get; set; }
+
+        public SoldDevice SoldDevice { get; set; }
 
         [Required]
         public int SoldDeviceId { get; set; }
 
         [Required]
-        public int CallHistoryId { get; set; }
+        public DateTime ReclamationCreated { get; set; }
+
+        public DateTime? ReclamationEnded { get; set; }
+
+        public ReclamationType ReclamationType { get; set; }
 
         [Required]
         public int ReclamationTypeId { get; set; }
