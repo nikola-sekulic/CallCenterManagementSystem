@@ -29,5 +29,7 @@ namespace CallCenterManagementSystem.Dtos
 
         [Required]
         public decimal Price { get; set; }
+
+        
     }
 }

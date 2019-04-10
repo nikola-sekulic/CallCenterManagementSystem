@@ -25,10 +25,14 @@ namespace CallCenterManagementSystem.Views.Employees.API
                 .Include(c => c.Department);
 
             if (!String.IsNullOrWhiteSpace(query))
-                employeesQuery = employeesQuery.Where(c => c.Name.Contains(query) && c.DesignationId == Designation.Agent);
+                employeesQuery = employeesQuery.Where(c => c.Name.Contains(query) 
+                && c.DesignationId == Designation.Agent
+                && c.DateEnded == null);
 
             if (!String.IsNullOrWhiteSpace(query2))
-                employeesQuery = employeesQuery.Where(c => c.Name.Contains(query2)&&c.DesignationId==Designation.Specialist);
+                employeesQuery = employeesQuery.Where(c => c.Name.Contains(query2)
+                &&c.DesignationId==Designation.Specialist
+                && c.DateEnded == null);
 
 
             var employeesDtos = employeesQuery
@@ -77,7 +81,6 @@ namespace CallCenterManagementSystem.Views.Employees.API
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
             Mapper.Map(employeeDto, employeeInDb);
-
 
             _context.SaveChanges();
         }

@@ -10,7 +10,7 @@
     <div class="form-group">
         <label>Device for Reclamation</label>
         <div class="tt-container">
-            <input id="device" type="text" value="" class="form-control" />
+            <input id="device" name="device" data-rule-validDevice="true" type="text" value="" class="form-control" />
         </div>
     </div>
 
@@ -19,20 +19,20 @@
     <div class="form-group">
         <label>Agent</label>
         <div class="tt-container">
-            <input id="agent" type="text" value="" class="form-control" />
+            <input id="agent" data-rule-validAgent="true" name="agent" value="" class="form-control" />
         </div>
     </div>
 
     <div class="form-group">
         <label>Specialist</label>
         <div class="tt-container">
-            <input id="specialist" type="text" value="" class="form-control" />
+            <input id="specialist" data-rule-validSpecialist="true" name="specialist" type="text" value="" class="form-control" />
         </div>
     </div>
 
     <div class="form-group">
         <label for="Status">Select Status</label>
-        <select class="form-control" id="status">
+        <select class="form-control" id="status" required>
             <option>In Progress</option>
             <option>Reclamation Accepted</option>
             <option>Reclamation Declined</option>
@@ -42,7 +42,7 @@
     <div class="form-group">
         <label>Date Started</label>
         <div class="tt-container">
-            <input id="dateStarted" type="text" value="" class="form-control" />
+            <input id="dateStarted" required type="text" value="" class="form-control" />
         </div>
     </div>
 
@@ -55,7 +55,7 @@
 
     <div class="form-group">
         <label for="Type">Select Reclamation Type</label>
-        <select class="form-control" id="reclamationType">
+        <select class="form-control" id="reclamationType" required>
             <option>1</option>
             <option>2</option>
         </select>
@@ -64,15 +64,15 @@
     <div class="form-group">
         <label for="comment">Decription:</label>
         <div class="tt-container">
-            <textarea class="form-control" rows="5" id="desc"></textarea>
+            <textarea class="form-control" rows="5" id="desc" required></textarea>
         </div>
     </div>
 
-    <button class="btn btn-primary">Submit</button>
+    <button id="btn" class="btn btn-primary">Submit</button>
 </form>
 @section scripts
-    {
-
+{
+     @Scripts.Render("~/bundles/jqueryval")
     <script>
         $(document).ready(function () {
 
@@ -152,7 +152,7 @@
                 }).on("typeahead:select", function (e, device) {
                     $("#soldDevice").append("<li> Device: " + device.name +  "</li>");
                     $("#soldDevice").append("<li> Warranty Ends: " + device.warrantyEndDate +"</li>");
-                    $("#soldDevice").append("<li> Price:  &nbsp" + device.price + "</li>");
+                    $("#soldDevice").append("<li> Price: " + device.price + "</li>");
 
                     $("#soldDevice").append("<li>Buyer ID: " + device.buyerId + "</li>");
                     $("#soldDevice").append("<li>  Name: " + device.buyer.name + "</li>");
@@ -165,35 +165,44 @@
                 this.value = '';
                 $("#soldDevice").html('');
             });
+            
+            $.validator.addMethod("validAgent", function () {
+                return vm.agentId && vm.agentId !== 0;
+            }, "Please select a valid agent.");
 
-            $("#newReclamation").submit(function (e) {
-                e.preventDefault();
+            $.validator.addMethod("validSpecialist", function () {
+                return vm.specialistId && vm.specialistId !== 0;
+            }, "Please select a valid specialist.");
 
-                vm.reclamationCreated = $('#dateStarted').val();
-                vm.reclamationEnded = $('#dateEnded').val();
+            $.validator.addMethod("validDevice", function () {
+                return vm.soldDeviceId && vm.soldDeviceId !== 0;
+            }, "Please select a valid device.");
 
-                vm.status = $('#status').val();
-                vm.reclamationTypeId = $('#reclamationType').val();
-                vm.problemDescription = $('#desc').val();
+            var validator = $("#newReclamation").validate({
+                submitHandler: function () {
+                    vm.reclamationCreated = $('#dateStarted').val();
+                    vm.reclamationEnded = $('#dateEnded').val();
+                    vm.status = $('#status').val();
+                    vm.reclamationTypeId = $('#reclamationType').val();
+                    vm.problemDescription = $('#desc').val();
 
-                $.ajax({
-                    url: "/api/reclamations",
-                    method: "post",
-                    data: vm
-                })
-                    .done(function () {
-                        console.log("done");
-
+                    $.ajax({
+                        url: "/api/reclamations",
+                        method: "post",
+                        data: vm
                     })
-                    .fail(function () {
-                    });
+                        .done(function () {
+                            toastr.success("Reclamation sucessfully recorded.");
+                            vm = {};
+                            validator.resetForm();
+                        })
+                        .fail(function () {
+                            toastr.error("Something unexpected happend.");
+                        });
+                        return false;
+                    }
+                });
             });
-
-        });
-    </script>
-
-    <script>
-        
     </script>
 }
 

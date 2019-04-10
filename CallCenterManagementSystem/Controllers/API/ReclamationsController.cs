@@ -8,7 +8,7 @@ using System.Web.Http;
 using CallCenterManagementSystem.Dtos;
 using CallCenterManagementSystem.Models;
 using System.Data.Entity;
-
+using System.Data.Entity.Validation;
 
 namespace CallCenterManagementSystem.Controllers.API
 {
@@ -52,13 +52,21 @@ namespace CallCenterManagementSystem.Controllers.API
         [HttpPost]
         public IHttpActionResult CreateNewReclamations(NewReclamationDto newReclamationDto)
         {
-            
+            var soldDevice = _context.SoldDevices.Single(c => c.Id == newReclamationDto.SoldDeviceId);
 
+            if (soldDevice.ExpiredWarranty() == true)
+                return BadRequest("Warranty for this device has expired.");
+
+            if (!ModelState.IsValid)
+                return BadRequest();
             var reclamation = Mapper.Map<NewReclamationDto, Reclamation>(newReclamationDto);
+
             _context.Reclamations.Add(reclamation);
             _context.SaveChanges();
+
             newReclamationDto.Id = reclamation.Id;
             return Ok();
+
            
         }
     }

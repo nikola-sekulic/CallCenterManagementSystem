@@ -30,5 +30,12 @@ namespace CallCenterManagementSystem.Models
         [Required]
         public decimal Price { get; set; }
 
+        public bool ExpiredWarranty()
+        {
+            if (DateTime.Now.Subtract(WarrantyEndDate).TotalDays >= 1)
+                return true;
+            else
+                return false;
+        }
     }
 }

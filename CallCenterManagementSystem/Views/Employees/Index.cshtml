@@ -17,6 +17,8 @@
         <tr>
             <th>Employee</th>
             <th>Designation</th>
+            <th>DateStarted</th>
+            <th>DateEnded</th>
             <th>Delete</th>
         </tr>
     </thead>
@@ -43,6 +45,24 @@
                         data: "designation.name"
                     },
                     {
+                        data: "dateStarted",
+                        "render": function dateFormat(value, row, index) {
+                            if (!moment(value).isValid())
+                                return "";
+                            else
+                                return moment(value).format("MM-DD-YYYY");
+                        }
+                    },
+                    {
+                        data: "dateEnded",
+                        "render": function dateFormat(value, row, index) {
+                            if (!moment(value).isValid())
+                                return "";
+                            else
+                                return moment(value).format("MM-DD-YYYY");
+                        }
+                    },
+                    {
                         data: "id",
                         render: function (data) {
                             return "<button class='btn-link js-delete' data-employee-id=" + data + ">Delete</button>";
@@ -60,6 +80,9 @@
                             success: function () {
                                 table.row(button.parents("tr")).remove().draw();
                                 bootstrap-flatly
+                            },
+                            error: function () {
+                                bootbox.alert("Sorry, you are not allowed to delete this record, Because It is used by other resources.");
                             }
                         });
                     }

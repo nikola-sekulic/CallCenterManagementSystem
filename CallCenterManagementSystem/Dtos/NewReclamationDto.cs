@@ -20,19 +20,16 @@ namespace CallCenterManagementSystem.Dtos
         [StringLength(50)]
         public string Status { get; set; }
 
-        [Required]
-        //[MustBeAgent]
+        
         public Employee Agent { get; set; }
 
         [Required]
-        //[MustBeAgent]
         public int AgentId { get; set; }
 
 
         public Employee Specialist { get; set; }
 
         [Required]
-        //[MustBeSpecialist]
         public int SpecialistId { get; set; }
 
         public SoldDevice SoldDevice { get; set; }
