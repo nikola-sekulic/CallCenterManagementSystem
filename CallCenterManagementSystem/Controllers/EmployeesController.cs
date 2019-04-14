@@ -39,6 +39,7 @@ namespace CallCenterManagementSystem.Controllers
             return View("EmployeeForm", viewModel);
         }
 
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult Save(Employee employee)
         {

@@ -12,10 +12,10 @@ namespace CallCenterManagementSystem
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/bootstrap.js",
                       "~/Scripts/bootbox.js",
-                      "~/Scripts/datatables/jquery.datatables.js",
+                      "~/Scripts/dataTables/jquery.dataTables.js",
+                      "~/Scripts/dataTables/datatables.bootstrap.js",
                       "~/Scripts/respond.js",
                       "~/Scripts/toastr.js",
-                      "~/Scripts/datatables/datatables.bootstrap.js",
                       "~/Scripts/typeahead.bundle.js",
                       "~/Scripts/moment.js",
                       "~/Scripts/pikaday.js"
@@ -31,16 +31,16 @@ namespace CallCenterManagementSystem
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap-flatly.css",
+                      "~/Content/bootstrap-lumen.css",
                       "~/Content/bootstrap-theme.css",
+                      "~/content/datatables/css/datatables.bootstrap.css",
                       "~/Content/toastr.css",
-                      "~/Content/css/datatables.bootstrap.css",
                       "~/Content/typeahead.css",
-                      "~/Content/site.css",
                       "~/Content/Pikaday/pikaday.css",
                       //"~/Content/Pikaday/site.css",
                       //"~/Content/Pikaday/theme.css",
-                      "~/Content/Pikaday/triangle.css"));
+                      "~/Content/Pikaday/triangle.css",
+                      "~/Content/site.css"));
         }
     }
 }

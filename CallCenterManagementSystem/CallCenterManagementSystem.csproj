@@ -258,6 +258,10 @@
     <Compile Include="Migrations\201904061109411_AddIdforEmployees.Designer.cs">
       <DependentUpon>201904061109411_AddIdforEmployees.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904111724316_SeedUsers.cs" />
+    <Compile Include="Migrations\201904111724316_SeedUsers.Designer.cs">
+      <DependentUpon>201904111724316_SeedUsers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Buyer.cs" />
@@ -595,6 +599,8 @@
     <Content Include="Views\SoldDevices\Index.cshtml" />
     <Content Include="Views\Shared\_NavBar.cshtml" />
     <Content Include="Views\Reclamations\New.cshtml" />
+    <Content Include="Views\Reclamations\Index.cshtml" />
+    <Content Include="Views\Reclamations\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -651,6 +657,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904061109411_AddIdforEmployees.resx">
       <DependentUpon>201904061109411_AddIdforEmployees.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904111724316_SeedUsers.resx">
+      <DependentUpon>201904111724316_SeedUsers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

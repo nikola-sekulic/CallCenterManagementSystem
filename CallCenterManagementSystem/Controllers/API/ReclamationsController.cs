@@ -33,6 +33,7 @@ namespace CallCenterManagementSystem.Controllers.API
                 .Include(m => m.Specialist)
                 .Include(m => m.SoldDevice)
                 .Include(m => m.ReclamationType)
+                .Include(m => m.SoldDevice.Buyer)
                 .ToList()
                 .Select(Mapper.Map<Reclamation, NewReclamationDto>);
 
@@ -66,8 +67,36 @@ namespace CallCenterManagementSystem.Controllers.API
 
             newReclamationDto.Id = reclamation.Id;
             return Ok();
-
-           
         }
+
+        [HttpPut]
+        public void UpdateReclamation(int id, NewReclamationDto reclamationDbo)
+        {
+            if (!ModelState.IsValid)
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+
+            var reclamationInDb = _context.Reclamations.SingleOrDefault(c => c.Id == id);
+
+            if (reclamationInDb == null)
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+
+            Mapper.Map(reclamationDbo, reclamationInDb);
+
+            _context.SaveChanges();
+        }
+
+        [HttpDelete]
+        public void DeleteReclamation(int id)
+        {
+            var reclamationInDb = _context.Reclamations.SingleOrDefault(c => c.Id == id);
+
+            if (reclamationInDb == null)
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+
+            _context.Reclamations.Remove(reclamationInDb);
+            _context.SaveChanges();
+        }
+
     }
 }
+
