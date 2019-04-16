@@ -16,7 +16,10 @@ namespace CallCenterManagementSystem.Models
         public string Name { get; set; }
 
         [Required]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DateStarted { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? DateEnded { get; set; }
 
         [Required]
@@ -25,14 +28,18 @@ namespace CallCenterManagementSystem.Models
 
 
         public Department Department { get; set; }
+
+        [Display(Name = "Department")]
         public int DepartmentId { get; set; }
 
 
         public Designation Designation { get; set; }
 
+        [Display(Name = "Designation")]
         public int DesignationId { get; set; }
 
         [IfNotSupervisor]
+        [Display(Name = "Supervisor")]
         public int? SupervisorId { get; set; }
 
         [Required]

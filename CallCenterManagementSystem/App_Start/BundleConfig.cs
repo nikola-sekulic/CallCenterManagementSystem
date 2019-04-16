@@ -19,7 +19,6 @@ namespace CallCenterManagementSystem
                       "~/Scripts/typeahead.bundle.js",
                       "~/Scripts/moment.js",
                       "~/Scripts/pikaday.js"
-                      
                       ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(

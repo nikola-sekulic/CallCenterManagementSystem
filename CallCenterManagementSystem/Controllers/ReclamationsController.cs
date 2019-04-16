@@ -58,7 +58,7 @@ namespace CallCenterManagementSystem.Controllers
         {
             var reclamation = _context.Reclamations.Single(c => c.Id == id);
 
-            UpdateModel(reclamation, null, null, new string[] { "AgentID", "SoldDeviceId", "ReclamationCreated" });
+            TryUpdateModel(reclamation, null, null, new string[] { "AgentId", "SpecialistId","SoldDeviceId", "ReclamationCreated" });
 
             if (ModelState.IsValid)
             {

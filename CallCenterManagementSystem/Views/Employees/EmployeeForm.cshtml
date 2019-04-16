@@ -1,7 +1,9 @@
 ﻿@model CallCenterManagementSystem.ViewModels.NewEmployeeViewModel
 @{
-    ViewBag.Title = Model.Title;
-    Layout = "~/Views/Shared/_Layout.cshtml";
+                /**/
+
+                ViewBag.Title = Model.Title;
+                Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>@Model.Title</h2>
@@ -16,13 +18,13 @@
 
     <div class="form-group">
         @Html.LabelFor(m => m.Employee.DateStarted)
-        @Html.TextBoxFor(m => m.Employee.DateStarted, new { @id = "dateStarted", @class = "form-control" })
+        @Html.TextBoxFor(m => m.Employee.DateStarted, "{0:dd MM yyyy}", new { @id = "dateStarted", @class = "form-control" })
         @Html.ValidationMessageFor(m => m.Employee.DateStarted)
     </div>
 
     <div class="form-group">
         @Html.LabelFor(m => m.Employee.DateEnded)
-        @Html.TextBoxFor(m => m.Employee.DateEnded, new { @id = "dateEnded", @class = "form-control" })
+        @Html.TextBoxFor(m => m.Employee.DateEnded, "{0:dd MM yyyy}", new { @id = "dateEnded", @class = "form-control date-picker" })
         @Html.ValidationMessageFor(m => m.Employee.DateEnded)
     </div>
 
@@ -56,11 +58,11 @@
         <div class="radio-inline">
             @Html.RadioButtonFor(m => m.Employee.Gender, "Male", new { id = "isMale" }) Male
         </div>
-        
+
         <div class="radio-inline">
             @Html.RadioButtonFor(m => m.Employee.Gender, "Female", new { id = "isFemale" }) Female
         </div>
-        
+
         @Html.ValidationMessageFor(m => m.Employee.Gender)
     </div>
 
@@ -71,24 +73,18 @@
 }
 @section scripts
     {
-    @Scripts.Render("~/bundles/jqueryval")
 
     <script>
         $(document).ready(function () {
             $('#designation').change(function () {
-
                 var selectedValue = $(this).val();
-
                 if (selectedValue == 1) {
                     $("#supervisor").attr("disabled", "disabled");
                 }
                 else {
                     $("#supervisor").removeAttr("disabled");
                 }
-
-
             });
-
         });
     </script>
 

@@ -35,8 +35,10 @@ namespace CallCenterManagementSystem.Models
         public int SoldDeviceId { get; set; }
 
         [Required]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime ReclamationCreated { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? ReclamationEnded { get; set; }
 
         public ReclamationType ReclamationType { get; set; }

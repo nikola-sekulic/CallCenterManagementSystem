@@ -17,6 +17,8 @@ namespace CallCenterManagementSystem.Dtos
 
         [Required]
         public DateTime DateStarted { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? DateEnded { get; set; }
 
         [Required]
