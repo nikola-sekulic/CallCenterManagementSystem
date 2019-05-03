@@ -24,7 +24,7 @@
 
     <div class="form-group">
         @Html.LabelFor(m => m.Employee.DateEnded)
-        @Html.TextBoxFor(m => m.Employee.DateEnded, "{0:dd MM yyyy}", new { @id = "dateEnded", @class = "form-control date-picker" })
+        @Html.TextBoxFor(m => m.Employee.DateEnded, "{0:dd MM yyyy}", new { @id = "dateEnded", @autocomplete = "off", @class = "form-control date-picker" })
         @Html.ValidationMessageFor(m => m.Employee.DateEnded)
     </div>
 
