@@ -3,7 +3,7 @@ namespace CallCenterManagementSystem.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AddExampleSupervisor : DbMigration
+    public partial class PopulateInitialSupervisor : DbMigration
     {
         public override void Up()
         {

@@ -200,10 +200,10 @@ namespace CallCenterManagementSystem.Controllers
             return View(model);
         }
 
-        [Authorize(Roles = "Supervisor")]
+        [Authorize(Roles = "Admin")]
         public ActionResult RegisterEmployee()
         {
-            var designations = _context.Designations.ToList();
+            var designations = _context.Designations.ToList().Take(2);
             var departments = _context.Departments.ToList();
 
             var viewModel = new EmployeeFormViewModel()
@@ -216,7 +216,7 @@ namespace CallCenterManagementSystem.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Supervisor")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> RegisterEmployee(EmployeeFormViewModel viewModel)
         {
             if(ModelState.IsValid)

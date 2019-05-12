@@ -225,6 +225,10 @@
     <Compile Include="Migrations\201905121651474_PopulateDesignations.designer.cs">
       <DependentUpon>201905121651474_PopulateDesignations.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905122132092_PopulateInitialSupervisor.cs" />
+    <Compile Include="Migrations\201905122132092_PopulateInitialSupervisor.Designer.cs">
+      <DependentUpon>201905122132092_PopulateInitialSupervisor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Agent.cs" />
@@ -604,6 +608,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905121651474_PopulateDesignations.resx">
       <DependentUpon>201905121651474_PopulateDesignations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905122132092_PopulateInitialSupervisor.resx">
+      <DependentUpon>201905122132092_PopulateInitialSupervisor.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -7,13 +7,13 @@ namespace CallCenterManagementSystem.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class AddExampleSupervisor : IMigrationMetadata
+    public sealed partial class PopulateInitialSupervisor : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddExampleSupervisor));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(PopulateInitialSupervisor));
         
         string IMigrationMetadata.Id
         {
-            get { return "201905122059290_AddExampleSupervisor"; }
+            get { return "201905122132092_PopulateInitialSupervisor"; }
         }
         
         string IMigrationMetadata.Source
