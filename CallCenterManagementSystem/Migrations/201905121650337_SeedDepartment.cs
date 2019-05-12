@@ -3,16 +3,16 @@ namespace CallCenterManagementSystem.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AddGenderToEmployee : DbMigration
+    public partial class SeedDepartment : DbMigration
     {
         public override void Up()
         {
-            AddColumn("dbo.Employees", "Gender", c => c.String(nullable: false));
+            Sql("INSERT INTO Departments (Name) VALUES ('General')");
+            Sql("INSERT INTO Departments (Name) VALUES ('Part Time')");
         }
         
         public override void Down()
         {
-            DropColumn("dbo.Employees", "Gender");
         }
     }
 }

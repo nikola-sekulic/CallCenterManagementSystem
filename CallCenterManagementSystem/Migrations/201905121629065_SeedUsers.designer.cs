@@ -13,7 +13,7 @@ namespace CallCenterManagementSystem.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201904111724316_SeedUsers"; }
+            get { return "201905121629065_SeedUsers"; }
         }
         
         string IMigrationMetadata.Source

@@ -7,13 +7,13 @@ namespace CallCenterManagementSystem.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class Reclamation : IMigrationMetadata
+    public sealed partial class SeedDepartment : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Reclamation));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(SeedDepartment));
         
         string IMigrationMetadata.Id
         {
-            get { return "201903311632090_Reclamation"; }
+            get { return "201905121650337_SeedDepartment"; }
         }
         
         string IMigrationMetadata.Source

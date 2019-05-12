@@ -209,81 +209,21 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903201603596_InitialModel.cs" />
-    <Compile Include="Migrations\201903201603596_InitialModel.Designer.cs">
-      <DependentUpon>201903201603596_InitialModel.cs</DependentUpon>
+    <Compile Include="Migrations\201905121608129_InitialModel.cs" />
+    <Compile Include="Migrations\201905121608129_InitialModel.designer.cs">
+      <DependentUpon>201905121608129_InitialModel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903201633522_PopulateDepartmentAndDesignation.cs" />
-    <Compile Include="Migrations\201903201633522_PopulateDepartmentAndDesignation.Designer.cs">
-      <DependentUpon>201903201633522_PopulateDepartmentAndDesignation.cs</DependentUpon>
+    <Compile Include="Migrations\201905121629065_SeedUsers.cs" />
+    <Compile Include="Migrations\201905121629065_SeedUsers.designer.cs">
+      <DependentUpon>201905121629065_SeedUsers.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903261101161_DeviceSupplier.cs" />
-    <Compile Include="Migrations\201903261101161_DeviceSupplier.Designer.cs">
-      <DependentUpon>201903261101161_DeviceSupplier.cs</DependentUpon>
+    <Compile Include="Migrations\201905121650337_SeedDepartment.cs" />
+    <Compile Include="Migrations\201905121650337_SeedDepartment.designer.cs">
+      <DependentUpon>201905121650337_SeedDepartment.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903261118401_Buyer.cs" />
-    <Compile Include="Migrations\201903261118401_Buyer.Designer.cs">
-      <DependentUpon>201903261118401_Buyer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903261129266_SoldDevice.cs" />
-    <Compile Include="Migrations\201903261129266_SoldDevice.Designer.cs">
-      <DependentUpon>201903261129266_SoldDevice.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903291114525_ReclamationType.cs" />
-    <Compile Include="Migrations\201903291114525_ReclamationType.Designer.cs">
-      <DependentUpon>201903291114525_ReclamationType.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903291119395_CallHistory.cs" />
-    <Compile Include="Migrations\201903291119395_CallHistory.Designer.cs">
-      <DependentUpon>201903291119395_CallHistory.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903311632090_Reclamation.cs" />
-    <Compile Include="Migrations\201903311632090_Reclamation.Designer.cs">
-      <DependentUpon>201903311632090_Reclamation.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904011821426_DeleteEmployeeInReclamation.cs" />
-    <Compile Include="Migrations\201904011821426_DeleteEmployeeInReclamation.Designer.cs">
-      <DependentUpon>201904011821426_DeleteEmployeeInReclamation.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904011824413_AddAgentAndSpecialistToReclamation.cs" />
-    <Compile Include="Migrations\201904011824413_AddAgentAndSpecialistToReclamation.Designer.cs">
-      <DependentUpon>201904011824413_AddAgentAndSpecialistToReclamation.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904011836018_RemoveCallFromReclamationAddDate.cs" />
-    <Compile Include="Migrations\201904011836018_RemoveCallFromReclamationAddDate.Designer.cs">
-      <DependentUpon>201904011836018_RemoveCallFromReclamationAddDate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904061109411_AddIdforEmployees.cs" />
-    <Compile Include="Migrations\201904061109411_AddIdforEmployees.Designer.cs">
-      <DependentUpon>201904061109411_AddIdforEmployees.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904111724316_SeedUsers.cs" />
-    <Compile Include="Migrations\201904111724316_SeedUsers.Designer.cs">
-      <DependentUpon>201904111724316_SeedUsers.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905070906021_ApplicationUser.cs" />
-    <Compile Include="Migrations\201905070906021_ApplicationUser.Designer.cs">
-      <DependentUpon>201905070906021_ApplicationUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905071248260_SeedAspNetRoles.cs" />
-    <Compile Include="Migrations\201905071248260_SeedAspNetRoles.Designer.cs">
-      <DependentUpon>201905071248260_SeedAspNetRoles.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905081204563_AddUserIdToEmployee.cs" />
-    <Compile Include="Migrations\201905081204563_AddUserIdToEmployee.Designer.cs">
-      <DependentUpon>201905081204563_AddUserIdToEmployee.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905101015359_AddSupervisorId1.cs" />
-    <Compile Include="Migrations\201905101015359_AddSupervisorId1.Designer.cs">
-      <DependentUpon>201905101015359_AddSupervisorId1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905101018193_SupervisorId.cs" />
-    <Compile Include="Migrations\201905101018193_SupervisorId.Designer.cs">
-      <DependentUpon>201905101018193_SupervisorId.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905101939203_AddForeignKeySupervisorId.cs" />
-    <Compile Include="Migrations\201905101939203_AddForeignKeySupervisorId.Designer.cs">
-      <DependentUpon>201905101939203_AddForeignKeySupervisorId.cs</DependentUpon>
+    <Compile Include="Migrations\201905121651474_PopulateDesignations.cs" />
+    <Compile Include="Migrations\201905121651474_PopulateDesignations.designer.cs">
+      <DependentUpon>201905121651474_PopulateDesignations.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -653,62 +593,17 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903201603596_InitialModel.resx">
-      <DependentUpon>201903201603596_InitialModel.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201905121608129_InitialModel.resx">
+      <DependentUpon>201905121608129_InitialModel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903201633522_PopulateDepartmentAndDesignation.resx">
-      <DependentUpon>201903201633522_PopulateDepartmentAndDesignation.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201905121629065_SeedUsers.resx">
+      <DependentUpon>201905121629065_SeedUsers.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903261101161_DeviceSupplier.resx">
-      <DependentUpon>201903261101161_DeviceSupplier.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201905121650337_SeedDepartment.resx">
+      <DependentUpon>201905121650337_SeedDepartment.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903261118401_Buyer.resx">
-      <DependentUpon>201903261118401_Buyer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903261129266_SoldDevice.resx">
-      <DependentUpon>201903261129266_SoldDevice.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903291114525_ReclamationType.resx">
-      <DependentUpon>201903291114525_ReclamationType.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903291119395_CallHistory.resx">
-      <DependentUpon>201903291119395_CallHistory.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903311632090_Reclamation.resx">
-      <DependentUpon>201903311632090_Reclamation.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904011821426_DeleteEmployeeInReclamation.resx">
-      <DependentUpon>201904011821426_DeleteEmployeeInReclamation.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904011824413_AddAgentAndSpecialistToReclamation.resx">
-      <DependentUpon>201904011824413_AddAgentAndSpecialistToReclamation.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904011836018_RemoveCallFromReclamationAddDate.resx">
-      <DependentUpon>201904011836018_RemoveCallFromReclamationAddDate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904061109411_AddIdforEmployees.resx">
-      <DependentUpon>201904061109411_AddIdforEmployees.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904111724316_SeedUsers.resx">
-      <DependentUpon>201904111724316_SeedUsers.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905070906021_ApplicationUser.resx">
-      <DependentUpon>201905070906021_ApplicationUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905071248260_SeedAspNetRoles.resx">
-      <DependentUpon>201905071248260_SeedAspNetRoles.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905081204563_AddUserIdToEmployee.resx">
-      <DependentUpon>201905081204563_AddUserIdToEmployee.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905101015359_AddSupervisorId1.resx">
-      <DependentUpon>201905101015359_AddSupervisorId1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905101018193_SupervisorId.resx">
-      <DependentUpon>201905101018193_SupervisorId.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905101939203_AddForeignKeySupervisorId.resx">
-      <DependentUpon>201905101939203_AddForeignKeySupervisorId.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201905121651474_PopulateDesignations.resx">
+      <DependentUpon>201905121651474_PopulateDesignations.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
