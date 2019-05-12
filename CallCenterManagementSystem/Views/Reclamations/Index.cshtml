@@ -1,0 +1,183 @@
+﻿@model IEnumerable<CallCenterManagementSystem.Models.Reclamation>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p>
+    @Html.ActionLink("New Reclamation", "New", "Reclamations", null, new { @class = "btn btn-primary" })
+</p>
+
+<table id="reclamations" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>ReclamationId</th>
+            <th>BuyerName</th>
+            <th>BuyerPhone</th>
+            <th>BuyerAddress</th>
+            <th>Device</th>
+            <th>Status</th>
+            <th>Agent</th>
+            <th>Specialist</th>
+            <th>ReclamationCreated</th>
+            <th>ReclamationEnded</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var table = $("#reclamations").DataTable({
+                ajax: {
+                    url: "/api/reclamations",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "id",
+                        render: function (data, type, reclamation) {
+                            return "<a href='/reclamations/edit/" + reclamation.id + "'>" + reclamation.id + "</a>";
+                        }
+                        
+                    },
+                    {
+                        data: "soldDevice.buyer.name"
+                    },
+                    {
+                        data: "soldDevice.buyer.phoneNumber"
+                    },
+                    {
+                        data: "soldDevice.buyer.address"
+                    },
+                    {
+                        data: "soldDevice.name"
+                    },
+                    {
+                        data: "status"
+                    },
+                    {
+                        data: "agent.name"
+                    },
+                    {
+                        data: "specialist.name"
+                    },
+                    {
+                        data: "reclamationCreated",
+                        "render": function dateFormat(value, row, index) {
+                            if (!moment(value).isValid())
+                                return "";
+                            else
+                                return moment(value).format("DD  / MM / YYYY");
+                        }
+                    },
+                    {
+                        data: "reclamationEnded",
+                        "render": function dateFormat(value, row, index) {
+                            if (!moment(value).isValid())
+                                return "";
+                            else
+                                return moment(value).format("DD / MM / YYYY");
+                        }
+                    },
+                    {
+                        data: "id",
+                        render: function (data) {
+                            return "<button class='btn-link js-delete' data-reclamation-id=" + data + ">Delete</button>";
+                        }
+                    }
+
+                ]
+            });
+            $("#reclamations").on("click", ".js-delete", function () {
+                var button = $(this);
+                bootbox.confirm("Are you sure you want to delete this reclamation?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/api/reclamations/" + button.attr("data-reclamation-id"),
+                            method: "DELETE",
+                            success: function () {
+                                table.row(button.parents("tr")).remove().draw();
+                                bootstrap - flatly
+                            },
+                            error: function () {
+                                bootbox.alert("Something unexpected happend.");
+                            }
+                        });
+                    }
+                });
+            });
+        });
+
+    </script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            // $("#MyDataTable").DataTable();
+
+            GetEmployeeRecord();
+        })
+        var GetEmployeeRecord = function () {
+
+            $.ajax({
+
+                type: "Get",
+                url: "/api/reclamations",
+                success: function (response) {
+
+                    BindDataTable(response);
+
+                }
+            })
+
+        }
+
+        var BindDataTable = function (response) {
+
+            $("#MyDataTable").DataTable({
+
+                "aaData": response,
+                "aoColumns": [
+
+                    { "mData": "id" },
+                    { "mData": "problemDescription" },
+                    { "mData": "status" },
+                    { "mData": "agentId" },
+                    { "mData": "specialistId" },
+                    { "mData": "soldDeviceId" },
+                    { "mData": "reclamationCreated" },
+                    { "mData": "reclamationEnded" },
+                    { "mData": "reclamationTypeId" },
+                    {
+                        "mData": "id",
+                        "render": function (data,type,reclamation) {
+                            debugger
+                            return "<a href='/reclamations/edit/" + reclamation.id + "'>" + reclamation.id + "</a>";
+                        }
+                    },
+
+
+                ]
+
+            });
+        }
+
+        var AddEditEmployee = function (data,type,reclamation) {
+
+            var url = "/reclamations/edit?=" + id;
+
+            $("#myModalBodyDiv1").load(url, function () {
+                $("#myModal1").modal("show");
+
+            })
+
+        }
+    </script>
+}
+

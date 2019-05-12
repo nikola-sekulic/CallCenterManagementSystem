@@ -1,0 +1,189 @@
+﻿@model dynamic
+@{
+    ViewBag.Title = "New Reclamation Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>New Reclamation Form</h2>
+<form id="newReclamation">
+
+    <div class="form-group">
+        <label>Device for Reclamation</label>
+        <div class="tt-container">
+            <input id="device" name="device" data-rule-validDevice="true" type="text" value="" class="form-control" />
+        </div>
+    </div>
+
+    <ul id="soldDevice" class="text-success"></ul>
+
+    <div class="form-group">
+        <label>Agent</label>
+        <div class="tt-container">
+            <input id="agent" data-rule-validAgent="true" name="agent" value="" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Specialist</label>
+        <div class="tt-container">
+            <input id="specialist" data-rule-validSpecialist="true" name="specialist" type="text" value="" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="Status">Select Status</label>
+        <select class="form-control" id="status" required>
+            <option>In Progress</option>
+            <option>Reclamation Accepted</option>
+            <option>Reclamation Declined</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Date Started</label>
+        <div class="tt-container">
+            <input id="dateStarted" autocomplete="off" required type="text" value="" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Date Ended</label>
+        <div class="tt-container">
+            <input id="dateEnded" type="text" autocomplete="off" value="" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="Type">Select Reclamation Type</label>
+        <select class="form-control" id="reclamationType" required>
+            <option>1</option>
+            <option>2</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="comment">Decription:</label>
+        <div class="tt-container">
+            <textarea class="form-control" rows="5" id="desc" required></textarea>
+        </div>
+    </div>
+
+    <button id="btn" class="btn btn-primary">Submit</button>
+</form>
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            var vm = {};
+            var picker = new Pikaday({
+                field: $('#dateEnded')[0],
+                format: 'DD . MM . YYYY .',
+                yearRange: [2000, 2020]
+            });
+            var picker2 = new Pikaday({
+                field: $('#dateStarted')[0],
+                format: 'DD . MM . YYYY .',
+                yearRange: [2000, 2020]
+            });
+
+
+            var employees = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: '/api/employees?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+            $('#agent').typeahead({
+                minLength: 3,
+                highlight: true
+            }, {
+                    name: 'agents',
+                    display: 'name',
+                    source: employees
+                }).on("typeahead:select", function (e, agent) {
+                    vm.agentId = agent.id;
+                });
+            var specialists = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: '/api/employees?query2=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+            $('#specialist').typeahead({
+                minLength: 3,
+                highlight: true
+            }, {
+                    name: 'specialists',
+                    display: 'name',
+                    source: specialists
+                }).on("typeahead:select", function (e, specialist) {
+                    vm.specialistId = specialist.id;
+                });
+            var devices = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('id'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: '/api/solddevices?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+            $('#device').typeahead({
+                highlight: true
+            }, {
+                    name: 'devices',
+                    display: 'id',
+                    source: devices
+                }).on("typeahead:select", function (e, device) {
+                    $("#soldDevice").append("<li> Device: " + device.name + "</li>");
+                    $("#soldDevice").append("<li> Warranty Ends: " + device.warrantyEndDate + "</li>");
+                    $("#soldDevice").append("<li> Price: " + device.price + "</li>");
+                    $("#soldDevice").append("<li>Buyer ID: " + device.buyerId + "</li>");
+                    $("#soldDevice").append("<li>  Name: " + device.buyer.name + "</li>");
+                    $("#soldDevice").append("<li>   Address:" + device.buyer.address + "</li>");
+                    vm.soldDeviceId = device.id;
+                });
+            $('#device').on('click focusin', function () {
+                this.value = '';
+                $("#soldDevice").html('');
+            });
+
+            $.validator.addMethod("validAgent", function () {
+                return vm.agentId && vm.agentId !== 0;
+            }, "Please select a valid agent.");
+            $.validator.addMethod("validSpecialist", function () {
+                return vm.specialistId && vm.specialistId !== 0;
+            }, "Please select a valid specialist.");
+            $.validator.addMethod("validDevice", function () {
+                return vm.soldDeviceId && vm.soldDeviceId !== 0;
+            }, "Please select a valid device.");
+            var validator = $("#newReclamation").validate({
+                submitHandler: function () {
+                    vm.reclamationCreated = $('#dateStarted').val();
+                    vm.reclamationEnded = $('#dateEnded').val();
+                    vm.status = $('#status').val();
+                    vm.reclamationTypeId = $('#reclamationType').val();
+                    vm.problemDescription = $('#desc').val();
+                    $.ajax({
+                        url: "/api/reclamations",
+                        method: "post",
+                        data: vm
+                    })
+                        .done(function () {
+                            toastr.success("Reclamation sucessfully recorded.");
+                            vm = {};
+                            validator.resetForm();
+                        })
+                        .fail(function () {
+                            toastr.error("Something unexpected happend.");
+                        });
+                    return false;
+                }
+            });
+        });
+    </script>
+}

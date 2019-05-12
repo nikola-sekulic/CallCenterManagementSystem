@@ -1,0 +1,93 @@
+﻿@model IEnumerable<CallCenterManagementSystem.Models.Employee>
+
+
+@{
+    ViewBag.Title = "Employees";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Employees</h2>
+
+<p>
+    @Html.ActionLink("Register Employee", "RegisterEmployee","Account", null,new { @class="btn btn-primary"})
+</p>
+
+<table id="employees" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Employee</th>
+            <th>Designation</th>
+            <th>DateStarted</th>
+            <th>DateEnded</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var table = $("#employees").DataTable({
+                ajax: {
+                    url: "/api/employees",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "name",
+                        render: function (data, type, employee) {
+                            return "<a href='/employees/edit/" + employee.id + "'>" + employee.name + "</a>";
+                        }
+                    },
+                    {
+                        data: "designation.name"
+                    },
+                    {
+                        data: "dateStarted",
+                        "render": function dateFormat(value, row, index) {
+                            if (!moment(value).isValid())
+                                return "";
+                            else
+                                return moment(value).format("DD / MM / YYYY");
+                        }
+                    },
+                    {
+                        data: "dateEnded",
+                        "render": function dateFormat(value, row, index) {
+                            if (!moment(value).isValid())
+                                return "";
+                            else
+                                return moment(value).format("DD / MM / YYYY");
+                        }
+                    },
+                    {
+                        data: "id",
+                        render: function (data) {
+                            return "<button class='btn-link js-delete' data-employee-id=" + data + ">Delete</button>";
+                        }
+                    }
+                ]
+            });
+            $("#employees").on("click", ".js-delete", function () {
+                var button = $(this);
+                bootbox.confirm("Are you sure you want to delete this customer?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/api/employees/" + button.attr("data-employee-id"),
+                            method: "DELETE",
+                            success: function () {
+                                table.row(button.parents("tr")).remove().draw();
+                                bootstrap-flatly
+                            },
+                            error: function () {
+                                bootbox.alert("Sorry, you are not allowed to delete this record, Because It is used by other resources.");
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

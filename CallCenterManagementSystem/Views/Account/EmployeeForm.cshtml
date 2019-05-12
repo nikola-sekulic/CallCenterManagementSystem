@@ -1,0 +1,98 @@
+﻿@model CallCenterManagementSystem.ViewModels.EmployeeFormViewModel
+@{
+    ViewBag.Title = "Employee Form";
+}
+<h2>Employee Form</h2>
+@using (Html.BeginForm("RegisterEmployee", "Account", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.RegisterViewModel.Email)
+        @Html.TextBoxFor(m => m.RegisterViewModel.Email, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.RegisterViewModel.Email)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.RegisterViewModel.Password)
+        @Html.TextBoxFor(m => m.RegisterViewModel.Password, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.RegisterViewModel.Password)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.RegisterViewModel.ConfirmPassword)
+        @Html.TextBoxFor(m => m.RegisterViewModel.ConfirmPassword, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.RegisterViewModel.ConfirmPassword)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Name)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.DateStarted)
+        @Html.TextBoxFor(m => m.DateStarted, "{0:dd MM yyyy}", new { @id = "dateStarted", @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.DateStarted)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.DateEnded)
+        @Html.TextBoxFor(m => m.DateEnded, "{0:dd MM yyyy}", new { @id = "dateEnded", @autocomplete = "off", @class = "form-control date-picker" })
+        @Html.ValidationMessageFor(m => m.DateEnded)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.DesignationId)
+        @Html.DropDownListFor(m => m.DesignationId, new SelectList(Model.Designations, "Id", "Name"), "Select Designation.", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.DesignationId)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.DepartmentId)
+        @Html.DropDownListFor(m => m.DepartmentId, new SelectList(Model.Departments, "Id", "Name"), "Select Department.", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.DepartmentId)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Qualification)
+        @Html.TextBoxFor(m => m.Qualification, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Qualification)
+    </div>
+
+    
+
+    <div class="form-group">
+        <div class="radio-inline">
+            @Html.RadioButtonFor(m => m.Gender, "Male", new { id = "isMale" }) Male
+        </div>
+        <div class="radio-inline">
+            @Html.RadioButtonFor(m => m.Gender, "Female", new { id = "isFemale" }) Female
+        </div>
+        @Html.ValidationMessageFor(m => m.Gender)
+    </div>
+
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Id)
+    <button type="submit" class="btn btn-primary">Save</button>
+
+}
+@section scripts
+    {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        var picker = new Pikaday({
+            field: $('#dateStarted')[0],
+            format: 'DD . MM . YYYY .',
+            yearRange: [2000, 2020]
+        });
+    </script>
+    <script>
+        var picker = new Pikaday({
+            field: $('#dateEnded')[0],
+            format: 'DD . MM . YYYY .',
+            yearRange: [2000, 2020]
+        });
+    </script>
+
+}

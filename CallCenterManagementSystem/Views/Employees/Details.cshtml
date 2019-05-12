@@ -1,0 +1,75 @@
+﻿@model CallCenterManagementSystem.Models.Employee
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Employee</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateStarted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateStarted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateEnded)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateEnded)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Qualification)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Qualification)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartmentId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DepartmentId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DesignationId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DesignationId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SupervisorId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SupervisorId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
