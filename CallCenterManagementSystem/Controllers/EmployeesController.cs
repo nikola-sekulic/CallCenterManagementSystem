@@ -76,7 +76,17 @@ namespace CallCenterManagementSystem.Controllers
         // GET: Employees
         public ActionResult Index()
         {
-            return View();
+            if(User.Identity.IsAuthenticated)
+            {
+                if(User.IsInRole(RoleName.SupervisorRoleName))
+                    return View();
+            }
+            return HttpUnauthorizedResult();
+        }
+
+        private ActionResult HttpUnauthorizedResult()
+        {
+            throw new NotImplementedException();
         }
 
         public ActionResult Details(int id)

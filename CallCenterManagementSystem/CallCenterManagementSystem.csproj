@@ -230,30 +230,30 @@
       <DependentUpon>201905122132092_PopulateInitialSupervisor.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Agent.cs" />
-    <Compile Include="Models\ApplicationUser.cs" />
-    <Compile Include="Models\Buyer.cs" />
-    <Compile Include="Models\CallHistory.cs" />
-    <Compile Include="Models\Reclamation.cs" />
-    <Compile Include="Models\ReclamationType.cs" />
-    <Compile Include="Models\RoleName.cs" />
-    <Compile Include="Models\SoldDevice.cs" />
-    <Compile Include="Models\DeviceSupplier.cs" />
-    <Compile Include="Models\Department.cs" />
-    <Compile Include="Models\Designation.cs" />
-    <Compile Include="Models\Employee.cs" />
-    <Compile Include="Models\ApplicationDbContext.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Specialist.cs" />
-    <Compile Include="Models\Supervisor.cs" />
+    <Compile Include="Core\Models\AccountViewModels.cs" />
+    <Compile Include="Core\Models\Agent.cs" />
+    <Compile Include="Core\Models\ApplicationUser.cs" />
+    <Compile Include="Core\Models\Buyer.cs" />
+    <Compile Include="Core\Models\CallHistory.cs" />
+    <Compile Include="Core\Models\Reclamation.cs" />
+    <Compile Include="Core\Models\ReclamationType.cs" />
+    <Compile Include="Core\Models\RoleName.cs" />
+    <Compile Include="Core\Models\SoldDevice.cs" />
+    <Compile Include="Core\Models\DeviceSupplier.cs" />
+    <Compile Include="Core\Models\Department.cs" />
+    <Compile Include="Core\Models\Designation.cs" />
+    <Compile Include="Core\Models\Employee.cs" />
+    <Compile Include="Core\Models\ApplicationDbContext.cs" />
+    <Compile Include="Core\Models\ManageViewModels.cs" />
+    <Compile Include="Core\Models\Specialist.cs" />
+    <Compile Include="Core\Models\Supervisor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="ViewModels\EmployeeFormViewModel.cs" />
-    <Compile Include="ViewModels\NewEmployeeViewModel.cs" />
-    <Compile Include="ViewModels\NewReclamationViewModel.cs" />
-    <Compile Include="ViewModels\NewSoldDeviceViewModel.cs" />
-    <Compile Include="ViewModels\RegisterViewModel.cs" />
+    <Compile Include="Core\ViewModels\EmployeeFormViewModel.cs" />
+    <Compile Include="Core\ViewModels\NewEmployeeViewModel.cs" />
+    <Compile Include="Core\ViewModels\NewReclamationViewModel.cs" />
+    <Compile Include="Core\ViewModels\NewSoldDeviceViewModel.cs" />
+    <Compile Include="Core\ViewModels\RegisterViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="404.html" />
@@ -579,6 +579,7 @@
     <Content Include="Views\Reclamations\New.cshtml" />
     <Content Include="Views\Reclamations\Index.cshtml" />
     <Content Include="Views\Reclamations\Edit.cshtml" />
+    <Content Include="Views\Reclamations\ReadOnlyIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

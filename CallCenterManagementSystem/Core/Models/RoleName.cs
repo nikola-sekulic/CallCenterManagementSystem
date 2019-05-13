@@ -9,5 +9,6 @@ namespace CallCenterManagementSystem.Models
     {
         public const string AgentRoleName = "Agent";
         public const string SpecialistRoleName = "Specialist";
+        public const string SupervisorRoleName = "Admin";
     }
 }

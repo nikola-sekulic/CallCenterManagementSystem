@@ -203,7 +203,7 @@ namespace CallCenterManagementSystem.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult RegisterEmployee()
         {
-            var designations = _context.Designations.ToList().Take(2);
+            var designations = _context.Designations.Where(e => e.Id != Designation.Supervisor).ToList();
             var departments = _context.Departments.ToList();
 
             var viewModel = new EmployeeFormViewModel()
@@ -272,8 +272,8 @@ namespace CallCenterManagementSystem.Controllers
                         UserManager.AddClaim(user.Id, new Claim(ClaimTypes.GivenName, specialist.Name));
 
                         _context.Specialists.Add(specialist);
-                        
                     }
+                    AddErrors(result);
 
                     _context.SaveChanges();
 

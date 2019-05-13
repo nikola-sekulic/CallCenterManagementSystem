@@ -24,9 +24,11 @@ namespace CallCenterManagementSystem.Controllers
             _context.Dispose();
         }
 
-        public ActionResult Index()
+        public ViewResult Index()
         {
-            return View();
+            if (User.IsInRole(RoleName.SupervisorRoleName))
+                return View("Index");
+            return View("ReadOnlyIndex");
         }
 
         public ActionResult New()

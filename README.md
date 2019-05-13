@@ -1,12 +1,13 @@
 # CallCenterManagementSystem
  
- ![Capture](https://user-images.githubusercontent.com/48560426/57133504-3fdc2680-6da3-11e9-83ce-d88f75abdecc.JPG)
+![login](https://user-images.githubusercontent.com/48560426/57650189-82cfa280-75ca-11e9-9434-1ed2fd867ee1.PNG)
  
 Call center management  web application to support requirement which is that buyer buy device and get registered, after that, they call an agent if they have problem with that device. By default the reclamation gets a pending status because it needs to be reviewed, if warranty is valid. After that, the supervisor is going to work out the reclamation type and specialist who will repair device.
 
-Add new employee that can be supervisor, agent or specialist or edit/delete existing one with admin account.
+Register new employee that can be supervisor, agent or specialist by selecting designation from dropdownlist, or edit/delete existing one with admin account.
+Only admin (supervisor) can create,read, edit and delete employees.
 
-![Untitled](https://user-images.githubusercontent.com/48560426/57199380-8c2f8e00-6f7e-11e9-9c84-2470588af94a.png)
+![register](https://user-images.githubusercontent.com/48560426/57650294-caeec500-75ca-11e9-9dc7-89095ab4e9f0.PNG)
 
 You can search and sort records by any available column.
 

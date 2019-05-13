@@ -9,9 +9,11 @@ using CallCenterManagementSystem.Dtos;
 using CallCenterManagementSystem.Models;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
+using Microsoft.AspNet.Identity;
 
 namespace CallCenterManagementSystem.Controllers.API
 {
+    [Authorize]
     public class ReclamationsController : ApiController
     {
         private ApplicationDbContext _context;
@@ -36,6 +38,14 @@ namespace CallCenterManagementSystem.Controllers.API
                 .Include(m => m.SoldDevice.Buyer)
                 .ToList()
                 .Select(Mapper.Map<Reclamation, NewReclamationDto>);
+
+            if (User.IsInRole(RoleName.SpecialistRoleName))
+            {
+                var userId = User.Identity.GetUserId();
+                reclamationsQuery = reclamationsQuery.Where(e => e.Specialist.UserId == userId);
+
+                return Ok(reclamationsQuery);
+            }
 
             return Ok(reclamationsQuery);
         }

@@ -12,6 +12,7 @@ using Newtonsoft.Json.Linq;
 
 namespace CallCenterManagementSystem.Views.Employees.API
 {
+    [Authorize]
     public class EmployeesController : ApiController
     {
         private ApplicationDbContext _context;
@@ -39,6 +40,8 @@ namespace CallCenterManagementSystem.Views.Employees.API
             var employeesDtos = employeesQuery
             .ToList()
             .Select(Mapper.Map<Employee, EmployeeDto>);
+
+            
             
             return Ok(employeesDtos);
         }

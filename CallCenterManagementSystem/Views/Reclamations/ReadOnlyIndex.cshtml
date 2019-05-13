@@ -1,0 +1,88 @@
+﻿@model IEnumerable<CallCenterManagementSystem.Models.Reclamation>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p>
+    @Html.ActionLink("New Reclamation", "New", "Reclamations", null, new { @class = "btn btn-primary" })
+</p>
+
+<table id="reclamations" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>ReclamationId</th>
+            <th>BuyerName</th>
+            <th>BuyerPhone</th>
+            <th>BuyerAddress</th>
+            <th>Device</th>
+            <th>Status</th>
+            <th>Agent</th>
+            <th>Specialist</th>
+            <th>ReclamationCreated</th>
+            <th>ReclamationEnded</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var table = $("#reclamations").DataTable({
+                ajax: {
+                    url: "/api/reclamations",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "id",
+                    },
+                    {
+                        data: "soldDevice.buyer.name"
+                    },
+                    {
+                        data: "soldDevice.buyer.phoneNumber"
+                    },
+                    {
+                        data: "soldDevice.buyer.address"
+                    },
+                    {
+                        data: "soldDevice.name"
+                    },
+                    {
+                        data: "status"
+                    },
+                    {
+                        data: "agent.name"
+                    },
+                    {
+                        data: "specialist.name"
+                    },
+                    {
+                        data: "reclamationCreated",
+                        "render": function dateFormat(value, row, index) {
+                            if (!moment(value).isValid())
+                                return "";
+                            else
+                                return moment(value).format("DD  / MM / YYYY");
+                        }
+                    },
+                    {
+                        data: "reclamationEnded",
+                        "render": function dateFormat(value, row, index) {
+                            if (!moment(value).isValid())
+                                return "";
+                            else
+                                return moment(value).format("DD / MM / YYYY");
+                        }
+                    },
+                ]
+            });
+        });
+    </script>
+}
+
