@@ -10,49 +10,32 @@ using CallCenterManagementSystem.Models;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
 using Microsoft.AspNet.Identity;
+using CallCenterManagementSystem.Persistance;
 
 namespace CallCenterManagementSystem.Controllers.API
 {
-    [Authorize]
     public class ReclamationsController : ApiController
     {
-        private ApplicationDbContext _context;
+        private UnitOfWork _unitOfWork;
 
         public ReclamationsController()
         {
-            _context = new ApplicationDbContext();
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            _context.Dispose();
+            _unitOfWork = new UnitOfWork(new ApplicationDbContext());
         }
 
         public IHttpActionResult GetReclamations()
         {
-            var reclamationsQuery = _context.Reclamations
-                .Include(m => m.Agent)
-                .Include(m => m.Specialist)
-                .Include(m => m.SoldDevice)
-                .Include(m => m.ReclamationType)
-                .Include(m => m.SoldDevice.Buyer)
-                .ToList()
+            var reclamationsQuery = _unitOfWork.Reclamations.GetReclamations()
                 .Select(Mapper.Map<Reclamation, NewReclamationDto>);
 
-            if (User.IsInRole(RoleName.SpecialistRoleName))
-            {
-                var userId = User.Identity.GetUserId();
-                reclamationsQuery = reclamationsQuery.Where(e => e.Specialist.UserId == userId);
-
-                return Ok(reclamationsQuery);
-            }
+            
 
             return Ok(reclamationsQuery);
         }
 
         public IHttpActionResult GetReclamation(int id)
         {
-            var reclamation = _context.Reclamations.SingleOrDefault(c => c.Id == id);
+            var reclamation = _unitOfWork.Reclamations.GetReclamation(id);
 
             if (reclamation == null)
                 return NotFound();
@@ -63,17 +46,18 @@ namespace CallCenterManagementSystem.Controllers.API
         [HttpPost]
         public IHttpActionResult CreateNewReclamations(NewReclamationDto newReclamationDto)
         {
-            var soldDevice = _context.SoldDevices.Single(c => c.Id == newReclamationDto.SoldDeviceId);
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var soldDevice = _unitOfWork.SoldDevices.GetSoldDevice(newReclamationDto.SoldDeviceId);
 
             if (soldDevice.ExpiredWarranty() == true)
                 return BadRequest("Warranty for this device has expired.");
 
-            if (!ModelState.IsValid)
-                return BadRequest();
             var reclamation = Mapper.Map<NewReclamationDto, Reclamation>(newReclamationDto);
 
-            _context.Reclamations.Add(reclamation);
-            _context.SaveChanges();
+            _unitOfWork.Reclamations.Add(reclamation);
+            _unitOfWork.Complete();
 
             newReclamationDto.Id = reclamation.Id;
             return Ok();
@@ -85,26 +69,26 @@ namespace CallCenterManagementSystem.Controllers.API
             if (!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
 
-            var reclamationInDb = _context.Reclamations.SingleOrDefault(c => c.Id == id);
+            var reclamationInDb = _unitOfWork.Reclamations.GetReclamation(id);
 
             if (reclamationInDb == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
             Mapper.Map(reclamationDbo, reclamationInDb);
 
-            _context.SaveChanges();
+            _unitOfWork.Complete();
         }
 
         [HttpDelete]
         public void DeleteReclamation(int id)
         {
-            var reclamationInDb = _context.Reclamations.SingleOrDefault(c => c.Id == id);
+            var reclamationInDb = _unitOfWork.Reclamations.GetReclamation(id);
 
             if (reclamationInDb == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            _context.Reclamations.Remove(reclamationInDb);
-            _context.SaveChanges();
+            _unitOfWork.Reclamations.Remove(reclamationInDb);
+            _unitOfWork.Complete();
         }
 
     }

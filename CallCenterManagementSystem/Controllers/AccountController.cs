@@ -10,6 +10,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using CallCenterManagementSystem.Models;
 using CallCenterManagementSystem.ViewModels;
+using CallCenterManagementSystem.Core;
+using CallCenterManagementSystem.Persistance;
 
 namespace CallCenterManagementSystem.Controllers
 {
@@ -19,12 +21,13 @@ namespace CallCenterManagementSystem.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private ApplicationRoleManager _roleManager;
-        private ApplicationDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
         public AccountController()
         {
-            _context = new ApplicationDbContext();
+            _unitOfWork = new UnitOfWork(new ApplicationDbContext());
         }
+        
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager,
             ApplicationRoleManager roleManager)
@@ -34,6 +37,7 @@ namespace CallCenterManagementSystem.Controllers
             SignInManager = signInManager;
             RoleManager = roleManager;
         }
+        
 
         public ApplicationSignInManager SignInManager
         {
@@ -203,8 +207,8 @@ namespace CallCenterManagementSystem.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult RegisterEmployee()
         {
-            var designations = _context.Designations.Where(e => e.Id != Designation.Supervisor).ToList();
-            var departments = _context.Departments.ToList();
+            var departments = _unitOfWork.Departments.GetDepartments();
+            var designations = _unitOfWork.Designations.GetDesignationsWithoutSupervisor();
 
             var viewModel = new EmployeeFormViewModel()
             {
@@ -230,7 +234,7 @@ namespace CallCenterManagementSystem.Controllers
                 var result = await UserManager.CreateAsync(user, viewModel.RegisterViewModel.Password);
 
                 var userId = User.Identity.GetUserId();
-                var supervisor = _context.Employees.Single(e => e.UserId == userId);
+                var supervisor = _unitOfWork.Employees.GetProfile(userId);
 
                 if (result.Succeeded)
                 {
@@ -251,7 +255,7 @@ namespace CallCenterManagementSystem.Controllers
                         };
                         UserManager.AddClaim(user.Id, new Claim(ClaimTypes.GivenName, agent.Name));
 
-                         _context.Agents.Add(agent);
+                        _unitOfWork.Employees.Add(agent);
                     }
 
                     if (viewModel.DesignationId == Designation.Specialist)
@@ -271,30 +275,19 @@ namespace CallCenterManagementSystem.Controllers
                         };
                         UserManager.AddClaim(user.Id, new Claim(ClaimTypes.GivenName, specialist.Name));
 
-                        _context.Specialists.Add(specialist);
+                        _unitOfWork.Employees.Add(specialist);
                     }
                     AddErrors(result);
 
-                    _context.SaveChanges();
+                    _unitOfWork.Complete();
 
-                    /* try
-                     {
-                         _context.SaveChanges();
-
-                     }
-                     catch(DbEntityValidationException e)
-                     {
-                         Console.WriteLine(e);
-                     }*/
                     return RedirectToAction("Index", "Employees");
                 }
                 this.AddErrors(result);
             }
 
-            var designations = _context.Designations.ToList();
-            var departments = _context.Departments.ToList();
-            viewModel.Designations = designations;
-            viewModel.Departments = departments;
+            viewModel.Designations = _unitOfWork.Designations.GetDesignations();
+            viewModel.Departments = _unitOfWork.Departments.GetDepartments();
 
             return View("EmployeeForm", viewModel);
         }
@@ -532,8 +525,6 @@ namespace CallCenterManagementSystem.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            _context.Dispose();
-
             if (disposing)
             {
                 if (_userManager != null)

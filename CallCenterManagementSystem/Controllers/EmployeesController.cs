@@ -8,58 +8,37 @@ using System.Web.Mvc;
 using System.Data.Entity;
 using AutoMapper;
 using CallCenterManagementSystem.Dtos;
+using CallCenterManagementSystem.Persistance;
 
 namespace CallCenterManagementSystem.Controllers
 {
+    [Authorize]
     public class EmployeesController : Controller
     {
-        private ApplicationDbContext _context;
+        private UnitOfWork _unitOfWork;
 
         public EmployeesController()
         {
-            _context = new ApplicationDbContext();
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            _context.Dispose();
-        }
-
-        public ActionResult New()
-        {
-            var departments = _context.Departments.ToList();
-            var designations = _context.Designations.ToList();
-            var agents = _context.Agents.ToList();
-            var specialists = _context.Specialists.ToList();
-            var viewModel = new NewEmployeeViewModel
-            {
-                Employee=new Supervisor(),
-                Departments = departments,
-                Designations = designations,
-            };
-            return View("EmployeeForm", viewModel);
+            _unitOfWork = new UnitOfWork(new ApplicationDbContext());
         }
 
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult Save(Employee employee)
+        public ActionResult Save(Agent employee)
         {
             if (!ModelState.IsValid)
             {
                 var viewModel = new NewEmployeeViewModel
                 {
                     Employee = employee,
-                    Departments = _context.Departments.ToList(),
-                    Designations = _context.Designations.ToList()
+                    Departments = _unitOfWork.Departments.GetDepartments(),
+                    Designations = _unitOfWork.Designations.GetDesignations()
                 };
-                
+
                 return View("EmployeeForm", viewModel);
             }
-            if (employee.Id == 0)
-                _context.Employees.Add(employee);
-            else
-            {
-                var employeeInDb = _context.Employees.Single(m => m.Id == employee.Id);
+
+            var employeeInDb = _unitOfWork.Employees.GetEmployee(employee.Id);
 
                 employeeInDb.Name = employee.Name;
                 employeeInDb.DateStarted = employee.DateStarted;
@@ -67,9 +46,8 @@ namespace CallCenterManagementSystem.Controllers
                 employeeInDb.DepartmentId = employee.DepartmentId;
                 employeeInDb.Qualification = employee.Qualification;
                 employeeInDb.Gender = employee.Gender;
-            }
 
-            _context.SaveChanges();
+            _unitOfWork.Complete();
             return RedirectToAction("Index", "Employees");
         }
 
@@ -81,20 +59,12 @@ namespace CallCenterManagementSystem.Controllers
                 if(User.IsInRole(RoleName.SupervisorRoleName))
                     return View();
             }
-            return HttpUnauthorizedResult();
-        }
-
-        private ActionResult HttpUnauthorizedResult()
-        {
-            throw new NotImplementedException();
+            return HttpNotFound();
         }
 
         public ActionResult Details(int id)
         {
-            var employee = _context.Employees
-                .Include(c => c.Department)
-                .Include(c => c.Designation)
-                .SingleOrDefault(c => c.Id == id);
+            var employee = _unitOfWork.Employees.GetEmployee(id);
 
             if (employee == null)
                 return HttpNotFound();
@@ -104,7 +74,7 @@ namespace CallCenterManagementSystem.Controllers
 
         public ActionResult Edit(int id)
         {
-            var employee = _context.Employees.SingleOrDefault(c => c.Id == id);
+            var employee = _unitOfWork.Employees.GetEmployee(id);
 
             if (employee == null)
                 return HttpNotFound();
@@ -112,8 +82,8 @@ namespace CallCenterManagementSystem.Controllers
             var viewModel = new NewEmployeeViewModel
             {
                 Employee = employee,
-                Departments = _context.Departments.ToList(),
-                Designations = _context.Designations.ToList()
+                Departments = _unitOfWork.Departments.GetDepartments(),
+                Designations = _unitOfWork.Designations.GetDesignations()
             };
 
             return View("EmployeeForm", viewModel);

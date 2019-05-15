@@ -7,15 +7,20 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using AutoMapper;
+using CallCenterManagementSystem.Persistance;
+using Microsoft.AspNet.Identity;
 
 namespace CallCenterManagementSystem.Controllers
 {
     public class ReclamationsController : Controller
     {
         private ApplicationDbContext _context;
+        private UnitOfWork _unitOfWork;
+
 
         public ReclamationsController()
         {
+            _unitOfWork = new UnitOfWork(new ApplicationDbContext());
             _context = new ApplicationDbContext();
         }
 
@@ -33,6 +38,9 @@ namespace CallCenterManagementSystem.Controllers
 
         public ActionResult New()
         {
+            var userId = User.Identity.GetUserId();
+            var agent = _unitOfWork.Employees.GetProfile(userId);
+            ViewBag.agentId = agent.Id;
             return View();
         }
 

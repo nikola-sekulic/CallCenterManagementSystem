@@ -1,12 +1,11 @@
 ﻿@model CallCenterManagementSystem.ViewModels.NewEmployeeViewModel
 @{
-                /**/
 
-                ViewBag.Title = Model.Title;
+                ViewBag.Title ="Edit";
                 Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@Model.Title</h2>
+<h2>Edit Employee</h2>
 
 @using (Html.BeginForm("Save", "Employees"))
 {
@@ -44,14 +43,6 @@
         @Html.LabelFor(m => m.Employee.Qualification)
         @Html.TextBoxFor(m => m.Employee.Qualification, new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.Employee.Qualification)
-    </div>
-
-    <div class="form-group">
-
-        @Html.LabelFor(m => m.Employee.SupervisorId)
-        @Html.TextBoxFor(m => m.Employee.SupervisorId, new { id = "supervisor", @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.Employee.SupervisorId)
-
     </div>
 
     <div class="form-group">

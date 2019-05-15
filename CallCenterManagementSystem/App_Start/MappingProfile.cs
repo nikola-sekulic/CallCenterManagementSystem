@@ -15,6 +15,7 @@ namespace CallCenterManagementSystem.App_Start
             // Domain to Dto
             Mapper.CreateMap<Employee, EmployeeDto>()
                 .Include<Agent, AgentDto>()
+                .Include<Supervisor, SupervisorDto>()
                 .Include<Specialist, SpecialistDto>();
             
             Mapper.CreateMap<Supervisor, SupervisorDto>();
@@ -36,6 +37,8 @@ namespace CallCenterManagementSystem.App_Start
             Mapper.CreateMap<Reclamation, NewReclamationDto>();
             Mapper.CreateMap<NewReclamationDto, Reclamation>();
             Mapper.CreateMap<SupervisorDto, Supervisor>();
+            Mapper.CreateMap<AgentDto, Agent>();
+            Mapper.CreateMap<SpecialistDto, Specialist>();
 
 
 
@@ -43,6 +46,7 @@ namespace CallCenterManagementSystem.App_Start
             //Dto to Domain
             Mapper.CreateMap<EmployeeDto, Employee>()
                 .Include<AgentDto, Agent>()
+                .Include<SupervisorDto, Supervisor>()
                 .Include<SpecialistDto, Specialist>();
 
 

@@ -196,16 +196,24 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ReclamationsController.cs" />
     <Compile Include="Controllers\SoldDevicesController.cs" />
-    <Compile Include="Dtos\AgentDto.cs" />
-    <Compile Include="Dtos\BuyerDto.cs" />
-    <Compile Include="Dtos\DepartmentDto.cs" />
-    <Compile Include="Dtos\DesignationDto.cs" />
-    <Compile Include="Dtos\DeviceSupplierDto.cs" />
-    <Compile Include="Dtos\EmployeeDto.cs" />
-    <Compile Include="Dtos\NewReclamationDto.cs" />
-    <Compile Include="Dtos\SoldDeviceDto.cs" />
-    <Compile Include="Dtos\SpecialistDto.cs" />
-    <Compile Include="Dtos\SupervisorDto.cs" />
+    <Compile Include="Core\Dtos\AgentDto.cs" />
+    <Compile Include="Core\Dtos\BuyerDto.cs" />
+    <Compile Include="Core\Dtos\DepartmentDto.cs" />
+    <Compile Include="Core\Dtos\DesignationDto.cs" />
+    <Compile Include="Core\Dtos\DeviceSupplierDto.cs" />
+    <Compile Include="Core\Dtos\EmployeeDto.cs" />
+    <Compile Include="Core\Dtos\NewReclamationDto.cs" />
+    <Compile Include="Core\Dtos\SoldDeviceDto.cs" />
+    <Compile Include="Core\Dtos\SpecialistDto.cs" />
+    <Compile Include="Core\Dtos\SupervisorDto.cs" />
+    <Compile Include="Core\IUnitOfWork.cs" />
+    <Compile Include="Core\Repositories\IApplicationUserRepository.cs" />
+    <Compile Include="Core\Repositories\IDepartmentRepository.cs" />
+    <Compile Include="Core\Repositories\IDesignationRepository.cs" />
+    <Compile Include="Core\Repositories\IEmployeeRepository.cs" />
+    <Compile Include="Core\Repositories\IReclamationRepository.cs" />
+    <Compile Include="Core\Repositories\ISoldDeviceRepository.cs" />
+    <Compile Include="Core\ViewModels\UserViewModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -229,6 +237,10 @@
     <Compile Include="Migrations\201905122132092_PopulateInitialSupervisor.Designer.cs">
       <DependentUpon>201905122132092_PopulateInitialSupervisor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905151445468_PopulateReclamationType.cs" />
+    <Compile Include="Migrations\201905151445468_PopulateReclamationType.Designer.cs">
+      <DependentUpon>201905151445468_PopulateReclamationType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Core\Models\AccountViewModels.cs" />
     <Compile Include="Core\Models\Agent.cs" />
@@ -247,6 +259,12 @@
     <Compile Include="Core\Models\ManageViewModels.cs" />
     <Compile Include="Core\Models\Specialist.cs" />
     <Compile Include="Core\Models\Supervisor.cs" />
+    <Compile Include="Persistance\Repositories\DepartmentRepository.cs" />
+    <Compile Include="Persistance\Repositories\DesignationRepository.cs" />
+    <Compile Include="Persistance\Repositories\EmployeeRepository.cs" />
+    <Compile Include="Persistance\Repositories\ReclamationRepository.cs" />
+    <Compile Include="Persistance\Repositories\SoldDevicesRepository.cs" />
+    <Compile Include="Persistance\UnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Core\ViewModels\EmployeeFormViewModel.cs" />
@@ -612,6 +630,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905122132092_PopulateInitialSupervisor.resx">
       <DependentUpon>201905122132092_PopulateInitialSupervisor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905151445468_PopulateReclamationType.resx">
+      <DependentUpon>201905151445468_PopulateReclamationType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

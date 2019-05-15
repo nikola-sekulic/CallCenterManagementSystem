@@ -9,46 +9,36 @@ using CallCenterManagementSystem.Dtos;
 using CallCenterManagementSystem.Models;
 using System.Data.Entity;
 using Newtonsoft.Json.Linq;
+using CallCenterManagementSystem.Persistance;
 
 namespace CallCenterManagementSystem.Views.Employees.API
 {
     [Authorize]
     public class EmployeesController : ApiController
     {
-        private ApplicationDbContext _context;
+        private UnitOfWork _unitOfWork;
 
         public EmployeesController()
         {
-            _context = new ApplicationDbContext();
+            _unitOfWork = new UnitOfWork(new ApplicationDbContext());
         }
-        public IHttpActionResult GetEmployees (string query = null,string query2=null)
+
+        public IHttpActionResult GetEmployees (string query = null)
         {
-            var employeesQuery = _context.Employees
-                .Include(c => c.Designation)
-                .Include(c => c.Department);
+            var employeesQuery = _unitOfWork.Employees.GetEmployees();
 
             if (!String.IsNullOrWhiteSpace(query))
-                employeesQuery = employeesQuery.Where(c => c.Name.Contains(query) 
-                && c.DesignationId == Designation.Agent
-                && c.DateEnded == null);
-
-            if (!String.IsNullOrWhiteSpace(query2))
-                employeesQuery = employeesQuery.Where(c => c.Name.Contains(query2)
-                && c.DesignationId==Designation.Specialist
-                && c.DateEnded == null);
+                employeesQuery = _unitOfWork.Employees.GetActiveSpecialists(query);
 
             var employeesDtos = employeesQuery
-            .ToList()
             .Select(Mapper.Map<Employee, EmployeeDto>);
-
-            
             
             return Ok(employeesDtos);
         }
 
         public IHttpActionResult GetEmployee(int id)
         {
-            var employee = _context.Employees.SingleOrDefault(c => c.Id == id);
+            var employee = _unitOfWork.Employees.GetEmployee(id);
 
             if (employee == null)
                 return NotFound();
@@ -56,44 +46,17 @@ namespace CallCenterManagementSystem.Views.Employees.API
             return Ok(Mapper.Map<Employee, EmployeeDto>(employee));
         }
 
-        [HttpPost]
-        public IHttpActionResult CreateEmployee(SupervisorDto employeeDto)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest();
-
-            var employee = Mapper.Map<SupervisorDto, Supervisor>(employeeDto);
-            _context.Supervisors.Add(employee);
-            _context.SaveChanges();
-            employeeDto.Id = employee.Id;
-            return Created(new Uri(Request.RequestUri + "/" + employee.Id), employeeDto);
-        }
-        [HttpPut]
-        public void UpdateCusutomer(int id, EmployeeDto employeeDto)
-        {
-            if (!ModelState.IsValid)
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
-
-            var employeeInDb = _context.Employees.SingleOrDefault(c => c.Id == id);
-
-            if (employeeInDb == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
-
-            Mapper.Map(employeeDto, employeeInDb);
-
-            _context.SaveChanges();
-        }
-
         [HttpDelete]
         public void DeleteEmployee(int id)
         {
-            var employeeInDb = _context.Employees.SingleOrDefault(c => c.Id == id);
+            var employeeInDb = _unitOfWork.Employees.GetEmployee(id);
 
             if (employeeInDb == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            _context.Employees.Remove(employeeInDb);
-            _context.SaveChanges();
+            _unitOfWork.Employees.Remove(employeeInDb);
+
+            _unitOfWork.Complete();
         }
     }
 }
