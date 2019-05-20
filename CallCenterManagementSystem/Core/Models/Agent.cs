@@ -13,7 +13,7 @@ namespace CallCenterManagementSystem.Models
 
         public Agent()
         {
-            DesignationId = 2;
+            DesignationId = Designation.Agent;
         }
 
     }

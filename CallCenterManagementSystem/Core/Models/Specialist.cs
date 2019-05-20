@@ -13,7 +13,7 @@ namespace CallCenterManagementSystem.Models
 
         public Specialist()
         {
-            DesignationId = 3;
+            DesignationId = Designation.Specialist;
         }
     }
 }

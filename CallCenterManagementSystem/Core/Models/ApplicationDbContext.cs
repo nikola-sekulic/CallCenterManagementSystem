@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using CallCenterManagementSystem.Persistance.EntityConfigurations;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -35,6 +36,8 @@ namespace CallCenterManagementSystem.Models
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Configurations.Add(new EmployeeConfiguration());
+            modelBuilder.Configurations.Add(new ReclamationConfiguration());
 
             modelBuilder.Entity<Agent>()
                 .HasRequired(e => e.Supervisor)

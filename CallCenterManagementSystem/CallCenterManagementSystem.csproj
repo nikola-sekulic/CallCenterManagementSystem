@@ -259,6 +259,8 @@
     <Compile Include="Core\Models\ManageViewModels.cs" />
     <Compile Include="Core\Models\Specialist.cs" />
     <Compile Include="Core\Models\Supervisor.cs" />
+    <Compile Include="Persistance\EntityConfigurations\EmployeeConfiguration.cs" />
+    <Compile Include="Persistance\EntityConfigurations\ReclamationConfiguration.cs" />
     <Compile Include="Persistance\Repositories\DepartmentRepository.cs" />
     <Compile Include="Persistance\Repositories\DesignationRepository.cs" />
     <Compile Include="Persistance\Repositories\EmployeeRepository.cs" />

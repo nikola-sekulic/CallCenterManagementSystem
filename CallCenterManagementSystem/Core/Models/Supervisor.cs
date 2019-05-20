@@ -15,7 +15,7 @@ namespace CallCenterManagementSystem.Models
         {
             Agents = new Collection<Agent>();
             Specialists = new Collection<Specialist>();
-            DesignationId = 1;
+            DesignationId = Designation.Supervisor;
         }
     }
 }

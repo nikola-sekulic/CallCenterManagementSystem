@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CallCenterManagementSystem.Models;
+using CallCenterManagementSystem.Persistance;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,10 +10,33 @@ namespace CallCenterManagementSystem.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly UnitOfWork _unitOfWork;
+
+        public HomeController()
+        {
+            _unitOfWork = new UnitOfWork(new ApplicationDbContext());
+        }
         public ActionResult Index()
         {
             return View();
         }
+
+        #region Dashboard Statistics
+
+        public ActionResult TotalReclamations()
+        {
+            var reclamations = _unitOfWork.Reclamations.GetReclamations();
+            return Json(reclamations.Count(), JsonRequestBehavior.AllowGet);
+        }
+
+
+
+
+
+
+
+
+        #endregion
 
         public ActionResult About()
         {
