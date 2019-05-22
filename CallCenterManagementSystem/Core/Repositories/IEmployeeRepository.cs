@@ -13,6 +13,7 @@ namespace CallCenterManagementSystem.Core.Repositories
         IEnumerable<Specialist> GetActiveSpecialists(string query);
         Employee GetEmployee(int id);
         Employee GetProfile(string userId);
+        Agent GetAgent(int agentId);
         void Add(Employee employee);
         void Remove(Employee employeeInDb);
     }

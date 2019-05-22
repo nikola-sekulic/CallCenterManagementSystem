@@ -21,7 +21,7 @@ namespace CallCenterManagementSystem.Dtos
         public string Status { get; set; }
 
         
-        public Employee Agent { get; set; }
+        public Agent Agent { get; set; }
 
         [Required]
         public int AgentId { get; set; }

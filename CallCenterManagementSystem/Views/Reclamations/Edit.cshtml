@@ -56,7 +56,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ReclamationEnded, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ReclamationEnded, new { htmlAttributes = new { @id = "reclamationEnded", @class = "form-control date-picker" } })
+                @Html.EditorFor(model => model.ReclamationEnded, new { htmlAttributes = new { autocomplete = "off", @id = "reclamationEnded", @class = "form-control date-picker" } })
                 @Html.ValidationMessageFor(model => model.ReclamationEnded)
             </div>
         </div>
@@ -64,7 +64,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ReclamationTypeId, "ReclamationTypeId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ReclamationTypeId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.ReclamationTypeId, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ReclamationTypeId, "", new { @class = "text-danger" })
             </div>
         </div>

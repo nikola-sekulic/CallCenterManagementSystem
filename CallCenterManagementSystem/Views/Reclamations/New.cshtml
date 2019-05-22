@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@ViewBag.agentId</h2>
+<h2>New Reclamation</h2>
 <form id="newReclamation">
 
     <div class="form-group">
@@ -141,7 +141,7 @@
                     vm.status = $('#status').val();
                     vm.reclamationTypeId = $('#reclamationType').val();
                     vm.problemDescription = $('#desc').val();
-                    vm.agentId=@ViewBag.agentId
+                    vm.agentId=@ViewBag.agent.Id
                     $.ajax({
                         url: "/api/reclamations",
                         method: "post",

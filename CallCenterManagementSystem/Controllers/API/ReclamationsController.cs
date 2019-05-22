@@ -17,10 +17,12 @@ namespace CallCenterManagementSystem.Controllers.API
     public class ReclamationsController : ApiController
     {
         private UnitOfWork _unitOfWork;
+        private ApplicationDbContext _context;
 
         public ReclamationsController()
         {
             _unitOfWork = new UnitOfWork(new ApplicationDbContext());
+            _context = new ApplicationDbContext();
         }
 
         public IHttpActionResult GetReclamations()
@@ -55,6 +57,12 @@ namespace CallCenterManagementSystem.Controllers.API
                 return BadRequest("Warranty for this device has expired.");
 
             var reclamation = Mapper.Map<NewReclamationDto, Reclamation>(newReclamationDto);
+
+            if (User.IsInRole(RoleName.AgentRoleName))
+            {
+                reclamation.Agent = _unitOfWork.Employees.GetAgent(reclamation.AgentId);
+                reclamation.Create();
+            }
 
             _unitOfWork.Reclamations.Add(reclamation);
             _unitOfWork.Complete();

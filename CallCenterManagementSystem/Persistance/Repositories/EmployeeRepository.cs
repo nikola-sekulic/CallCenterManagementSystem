@@ -51,9 +51,17 @@ namespace CallCenterManagementSystem.Persistance.Repositories
         public Employee GetProfile(string userId)
         {
             return _context.Employees
-                .Include(c => c.Designation)
-                .Include(c => c.Department)
+                .Include(c=>c.User)
                 .SingleOrDefault(c => c.UserId == userId);
+        }
+
+        public Agent GetAgent(int agentId)
+        {
+            return _context.Agents
+                .Include(c => c.Supervisor)
+                .Include(c => c.Supervisor.User)
+                .Include(c => c.User)
+                .SingleOrDefault(c => c.Id == agentId);
         }
 
         public void Remove(Employee employee)

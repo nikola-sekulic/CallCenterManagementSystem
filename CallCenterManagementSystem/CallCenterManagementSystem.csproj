@@ -189,6 +189,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\API\EmployeesController.cs" />
+    <Compile Include="Controllers\API\NotificationsController.cs" />
     <Compile Include="Controllers\API\ReclamationsController.cs" />
     <Compile Include="Controllers\API\SoldDevicesController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
@@ -207,6 +208,9 @@
     <Compile Include="Core\Dtos\SpecialistDto.cs" />
     <Compile Include="Core\Dtos\SupervisorDto.cs" />
     <Compile Include="Core\IUnitOfWork.cs" />
+    <Compile Include="Core\Models\Notification.cs" />
+    <Compile Include="Core\Models\NotificationType.cs" />
+    <Compile Include="Core\Models\UserNotification.cs" />
     <Compile Include="Core\Repositories\IApplicationUserRepository.cs" />
     <Compile Include="Core\Repositories\IDepartmentRepository.cs" />
     <Compile Include="Core\Repositories\IDesignationRepository.cs" />
@@ -241,8 +245,16 @@
     <Compile Include="Migrations\201905151445468_PopulateReclamationType.Designer.cs">
       <DependentUpon>201905151445468_PopulateReclamationType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905201946129_AddNotifications.cs" />
+    <Compile Include="Migrations\201905201946129_AddNotifications.Designer.cs">
+      <DependentUpon>201905201946129_AddNotifications.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905221105165_AddNotifications1.cs" />
+    <Compile Include="Migrations\201905221105165_AddNotifications1.Designer.cs">
+      <DependentUpon>201905221105165_AddNotifications1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Core\Models\AccountViewModels.cs" />
+    <Compile Include="Core\ViewModels\AccountViewModels.cs" />
     <Compile Include="Core\Models\Agent.cs" />
     <Compile Include="Core\Models\ApplicationUser.cs" />
     <Compile Include="Core\Models\Buyer.cs" />
@@ -256,7 +268,7 @@
     <Compile Include="Core\Models\Designation.cs" />
     <Compile Include="Core\Models\Employee.cs" />
     <Compile Include="Core\Models\ApplicationDbContext.cs" />
-    <Compile Include="Core\Models\ManageViewModels.cs" />
+    <Compile Include="Core\ViewModels\ManageViewModels.cs" />
     <Compile Include="Core\Models\Specialist.cs" />
     <Compile Include="Core\Models\Supervisor.cs" />
     <Compile Include="Persistance\EntityConfigurations\EmployeeConfiguration.cs" />
@@ -635,6 +647,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905151445468_PopulateReclamationType.resx">
       <DependentUpon>201905151445468_PopulateReclamationType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905201946129_AddNotifications.resx">
+      <DependentUpon>201905201946129_AddNotifications.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905221105165_AddNotifications1.resx">
+      <DependentUpon>201905221105165_AddNotifications1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

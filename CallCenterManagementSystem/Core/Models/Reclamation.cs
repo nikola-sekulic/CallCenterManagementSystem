@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CallCenterManagementSystem.Core.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -15,7 +16,7 @@ namespace CallCenterManagementSystem.Models
 
         public string Status { get; set; }
 
-        public Employee Agent { get; set; }
+        public Agent Agent { get; set; }
 
         public int AgentId { get; set; }
 
@@ -34,6 +35,13 @@ namespace CallCenterManagementSystem.Models
         public ReclamationType ReclamationType { get; set; }
 
         public int ReclamationTypeId { get; set; }
+
+        public void Create()
+        {
+            var notification = Notification.ReclamationCreated(this);
+
+            Agent.Supervisor.User.Notify(notification);
+        }
 
     }
 }

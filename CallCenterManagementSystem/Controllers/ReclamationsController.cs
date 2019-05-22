@@ -14,19 +14,11 @@ namespace CallCenterManagementSystem.Controllers
 {
     public class ReclamationsController : Controller
     {
-        private ApplicationDbContext _context;
         private UnitOfWork _unitOfWork;
-
 
         public ReclamationsController()
         {
             _unitOfWork = new UnitOfWork(new ApplicationDbContext());
-            _context = new ApplicationDbContext();
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            _context.Dispose();
         }
 
         public ViewResult Index()
@@ -40,13 +32,13 @@ namespace CallCenterManagementSystem.Controllers
         {
             var userId = User.Identity.GetUserId();
             var agent = _unitOfWork.Employees.GetProfile(userId);
-            ViewBag.agentId = agent.Id;
+            ViewBag.agent = agent;
             return View();
         }
 
         public ActionResult Edit(int id)
         {
-            var reclamation = _context.Reclamations.SingleOrDefault(c => c.Id == id);
+            var reclamation = _unitOfWork.Reclamations.GetReclamation(id);
 
             if (reclamation == null)
                 return HttpNotFound();
@@ -54,9 +46,8 @@ namespace CallCenterManagementSystem.Controllers
             var viewModel = new NewReclamationViewModel
             {
                 Reclamation = reclamation,
-                ReclamationTypes = _context.ReclamationTypes.ToList(),
-                SoldDevices = _context.SoldDevices.ToList(),
-                Employees = _context.Employees.ToList()
+                SoldDevices = _unitOfWork.SoldDevices.GetSoldDevices(),
+                Employees = _unitOfWork.Employees.GetEmployees()
             };
 
             return View(reclamation);
@@ -66,13 +57,13 @@ namespace CallCenterManagementSystem.Controllers
         [ActionName("Edit")]
         public ActionResult Edit_Post(int id)
         {
-            var reclamation = _context.Reclamations.Single(c => c.Id == id);
+            var reclamation = _unitOfWork.Reclamations.GetReclamation(id);
 
             TryUpdateModel(reclamation, null, null, new string[] { "AgentId", "SpecialistId","SoldDeviceId", "ReclamationCreated" });
 
             if (ModelState.IsValid)
             {
-                _context.SaveChanges();
+                _unitOfWork.Complete();
                 return RedirectToAction("Index");
             }
 

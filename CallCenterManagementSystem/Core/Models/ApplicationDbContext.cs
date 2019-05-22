@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using CallCenterManagementSystem.Core.Models;
 using CallCenterManagementSystem.Persistance.EntityConfigurations;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -21,6 +22,8 @@ namespace CallCenterManagementSystem.Models
         public DbSet<ReclamationType> ReclamationTypes { get; set; }
         public DbSet<CallHistory> CallHistories { get; set; }
         public DbSet<Reclamation> Reclamations { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
+        public DbSet<UserNotification> UserNotifications { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
@@ -49,13 +52,17 @@ namespace CallCenterManagementSystem.Models
                 .WithMany(e => e.Specialists)
                 .HasForeignKey(e => e.SupervisorId);
 
+            modelBuilder.Entity<UserNotification>()
+                .HasRequired(e => e.User)
+                .WithMany(e => e.UserNotifications)
+                .WillCascadeOnDelete(false);
+
+
             modelBuilder.Entity<Agent>()
                 .Property(e => e.SupervisorId).HasColumnName("SupervisorId");
 
             modelBuilder.Entity<Specialist>()
                 .Property(e => e.SupervisorId).HasColumnName("SupervisorId");
-                
-                
         }
     }
 }

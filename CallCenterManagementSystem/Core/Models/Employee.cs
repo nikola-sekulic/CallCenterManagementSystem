@@ -8,7 +8,6 @@ namespace CallCenterManagementSystem.Models
 {
     public abstract class Employee
     {
-        
         public int Id { get; set; }
 
         public string UserId { get; set; }
@@ -23,13 +22,11 @@ namespace CallCenterManagementSystem.Models
 
         public string Qualification { get; set; }
 
-
         public Department Department { get; set; }
 
         public int DepartmentId { get; set; }
 
-
-        public Designation Designation { get; set; }
+        public Designation Designation { get; private set; }
 
         public int DesignationId { get; set; }
 
