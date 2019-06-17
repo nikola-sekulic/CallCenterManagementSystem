@@ -11,7 +11,6 @@ using Microsoft.Owin.Security;
 using CallCenterManagementSystem.Models;
 using CallCenterManagementSystem.ViewModels;
 using CallCenterManagementSystem.Core;
-using CallCenterManagementSystem.Persistance;
 
 namespace CallCenterManagementSystem.Controllers
 {
@@ -23,9 +22,9 @@ namespace CallCenterManagementSystem.Controllers
         private ApplicationRoleManager _roleManager;
         private readonly IUnitOfWork _unitOfWork;
 
-        public AccountController()
+        public AccountController(IUnitOfWork unitOfWork)
         {
-            _unitOfWork = new UnitOfWork(new ApplicationDbContext());
+            _unitOfWork = unitOfWork;
         }
         
 

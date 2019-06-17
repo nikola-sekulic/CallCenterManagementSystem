@@ -1,20 +1,16 @@
-﻿using CallCenterManagementSystem.Models;
-using CallCenterManagementSystem.Persistance;
-using System;
-using System.Collections.Generic;
+﻿using CallCenterManagementSystem.Core;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace CallCenterManagementSystem.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly UnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public HomeController()
+        public HomeController(IUnitOfWork unitOfWork)
         {
-            _unitOfWork = new UnitOfWork(new ApplicationDbContext());
+            _unitOfWork = unitOfWork;
         }
         public ActionResult Index()
         {

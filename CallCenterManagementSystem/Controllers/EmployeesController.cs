@@ -1,25 +1,18 @@
 ﻿using CallCenterManagementSystem.Models;
 using CallCenterManagementSystem.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Data.Entity;
-using AutoMapper;
-using CallCenterManagementSystem.Dtos;
-using CallCenterManagementSystem.Persistance;
+using CallCenterManagementSystem.Core;
 
 namespace CallCenterManagementSystem.Controllers
 {
     [Authorize]
     public class EmployeesController : Controller
     {
-        private UnitOfWork _unitOfWork;
+        private IUnitOfWork _unitOfWork;
 
-        public EmployeesController()
+        public EmployeesController(IUnitOfWork unitOfWork)
         {
-            _unitOfWork = new UnitOfWork(new ApplicationDbContext());
+            _unitOfWork = unitOfWork;
         }
 
         [ValidateAntiForgeryToken]

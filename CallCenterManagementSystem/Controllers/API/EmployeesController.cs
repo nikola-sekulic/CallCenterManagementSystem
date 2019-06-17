@@ -7,20 +7,18 @@ using System.Net.Http;
 using System.Web.Http;
 using CallCenterManagementSystem.Dtos;
 using CallCenterManagementSystem.Models;
-using System.Data.Entity;
-using Newtonsoft.Json.Linq;
-using CallCenterManagementSystem.Persistance;
+using CallCenterManagementSystem.Core;
 
 namespace CallCenterManagementSystem.Views.Employees.API
 {
     [Authorize]
     public class EmployeesController : ApiController
     {
-        private UnitOfWork _unitOfWork;
+        private IUnitOfWork _unitOfWork;
 
-        public EmployeesController()
+        public EmployeesController(IUnitOfWork unitOfWork)
         {
-            _unitOfWork = new UnitOfWork(new ApplicationDbContext());
+            _unitOfWork = unitOfWork;
         }
 
         public IHttpActionResult GetEmployees (string query = null)

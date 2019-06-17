@@ -1,24 +1,18 @@
 ﻿using CallCenterManagementSystem.Models;
 using CallCenterManagementSystem.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Data.Entity;
-using AutoMapper;
-using CallCenterManagementSystem.Persistance;
 using Microsoft.AspNet.Identity;
+using CallCenterManagementSystem.Core;
 
 namespace CallCenterManagementSystem.Controllers
 {
     public class ReclamationsController : Controller
     {
-        private UnitOfWork _unitOfWork;
+        private IUnitOfWork _unitOfWork;
 
-        public ReclamationsController()
+        public ReclamationsController(IUnitOfWork unitOfWork)
         {
-            _unitOfWork = new UnitOfWork(new ApplicationDbContext());
+            _unitOfWork = unitOfWork;
         }
 
         public ViewResult Index()

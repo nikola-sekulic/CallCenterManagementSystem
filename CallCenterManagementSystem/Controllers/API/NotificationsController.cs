@@ -10,7 +10,6 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using CallCenterManagementSystem.Core.Models;
 using CallCenterManagementSystem.Models;
-using System.Data.Entity;
 using Microsoft.AspNet.Identity;
 
 namespace CallCenterManagementSystem.Controllers.API

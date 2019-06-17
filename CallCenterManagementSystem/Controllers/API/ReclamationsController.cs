@@ -1,28 +1,20 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using CallCenterManagementSystem.Dtos;
 using CallCenterManagementSystem.Models;
-using System.Data.Entity;
-using System.Data.Entity.Validation;
-using Microsoft.AspNet.Identity;
-using CallCenterManagementSystem.Persistance;
+using CallCenterManagementSystem.Core;
 
 namespace CallCenterManagementSystem.Controllers.API
 {
     public class ReclamationsController : ApiController
     {
-        private UnitOfWork _unitOfWork;
-        private ApplicationDbContext _context;
+        private IUnitOfWork _unitOfWork;
 
-        public ReclamationsController()
+        public ReclamationsController(IUnitOfWork unitOfWork)
         {
-            _unitOfWork = new UnitOfWork(new ApplicationDbContext());
-            _context = new ApplicationDbContext();
+            _unitOfWork = unitOfWork;
         }
 
         public IHttpActionResult GetReclamations()

@@ -37,6 +37,8 @@ namespace CallCenterManagementSystem.Persistance.Repositories
         {
             return _context.Reclamations
                 .Include(e => e.SoldDevice)
+                .Include(e => e.Agent)
+                .Include(e => e.Specialist)
                 .Include(e => e.SoldDevice.Buyer)
                 .Include(e => e.ReclamationType)
                 .ToList();
