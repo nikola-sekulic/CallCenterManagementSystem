@@ -10,9 +10,9 @@ namespace CallCenterManagementSystem.Persistance.Repositories
 {
     public class EmployeeRepository : IEmployeeRepository
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IApplicationDbContext _context;
 
-        public EmployeeRepository(ApplicationDbContext context)
+        public EmployeeRepository(IApplicationDbContext context)
         {
             _context = context;
         }
@@ -41,10 +41,10 @@ namespace CallCenterManagementSystem.Persistance.Repositories
         public IEnumerable<Specialist> GetActiveSpecialists(string query)
         {
             return _context.Specialists
+                .Where(c => c.Name.Contains(query)
+                && c.DateEnded == null)
                 .Include(c => c.Designation)
                 .Include(c => c.Department)
-                .Where(c=>c.Name.Contains(query)
-                && c.DateEnded == null)
                 .ToList();
         }
 

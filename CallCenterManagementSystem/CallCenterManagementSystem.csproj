@@ -236,6 +236,7 @@
     <Compile Include="Core\Dtos\SpecialistDto.cs" />
     <Compile Include="Core\Dtos\SupervisorDto.cs" />
     <Compile Include="Core\IUnitOfWork.cs" />
+    <Compile Include="Core\IApplicationDbContext.cs" />
     <Compile Include="Core\Models\Notification.cs" />
     <Compile Include="Core\Models\NotificationType.cs" />
     <Compile Include="Core\Models\UserNotification.cs" />

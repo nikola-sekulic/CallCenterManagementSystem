@@ -9,9 +9,9 @@ namespace CallCenterManagementSystem.Persistance.Repositories
 {
     public class DesignationRepository : IDesignationRepository
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IApplicationDbContext _context;
 
-        public DesignationRepository(ApplicationDbContext context)
+        public DesignationRepository(IApplicationDbContext context)
         {
             _context = context;
         }

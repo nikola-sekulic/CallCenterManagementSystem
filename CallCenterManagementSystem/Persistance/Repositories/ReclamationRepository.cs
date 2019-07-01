@@ -10,9 +10,9 @@ namespace CallCenterManagementSystem.Persistance.Repositories
 {
     public class ReclamationRepository : IReclamationRepository
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IApplicationDbContext _context;
 
-        public ReclamationRepository(ApplicationDbContext context)
+        public ReclamationRepository(IApplicationDbContext context)
         {
             _context = context;
         }
